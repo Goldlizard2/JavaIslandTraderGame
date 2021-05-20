@@ -7,16 +7,29 @@ public class Item {
 	private int itemSize;
 	private String asosatedIslandName;
 	private int[] upgradeProperties;
-	private int value;
+	private double value;
 	
 	public Item(String name) {
 		itemName = name;
 	}
 	
-	public Item(String name, int size, int value) {
-		itemName = name;
+	public Item(String name, int size, double value) {
+		itemName = name;	
 		itemSize = size;
 		this.value = value;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj.getClass() == this.getClass())
+		{
+			if (((Item) obj).itemName == itemName)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -28,7 +41,7 @@ public class Item {
 		if(value == 0) {
 			return itemName;
 		} else {
-			return "£" + value + " " + itemName + " Size " + itemSize;
+			return String.format("£ %.2f %s size %d",value ,itemName , itemSize);
 		}
 		
 	}
@@ -59,8 +72,20 @@ public class Item {
 		return upgradeProperties;
 	}
 	
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
+	
+	public Item clone() {
+		return new Item(itemName, itemSize, value);
+	}
+	
+	public Item cloneBuyableItem() {
+		Item toReturn = clone();
+		toReturn.value *= 1.1;
+		return toReturn;
+	}
+	
+
 
 }

@@ -2,18 +2,18 @@ package seng201.islandtradergame.core;
 
 public class Trader {
 	private Ship traderShip;
-	private int money;
+	private double money;
 	
 	public Trader(Ship ship) {
 		traderShip = ship;
 		money = 100;
 	}
 	
-	public int getMoney() {
+	public double getMoney() {
 		return money;
 	}
 	
-	public void updatedMoney(int money) {
+	public void updatedMoney(double money) {
 		this.money += money;
 	}
 	

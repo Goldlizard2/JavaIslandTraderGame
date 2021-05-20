@@ -10,6 +10,7 @@ import seng201.islandtradergame.core.Trader;
 
 import javax.swing.JPanel;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -71,7 +72,10 @@ public class GameWindow implements MouseListener {
 		islands = isl;
 		trader = trad;
 		gameDays = days;
-		currentIsland = islands[rand.nextInt(islandNum)];
+		
+		int islandOffset = rand.nextInt(islandNum);
+		currentIsland = islands[islandOffset];
+		setShipCoords(islandOffset);
 		
 		
 		initialise();
@@ -269,8 +273,9 @@ public class GameWindow implements MouseListener {
 		
 		
 		shipSprite = new JLabel("");
-		shipSprite.setBounds(1159, 546, 100, 70);
+		shipSprite.setBounds(890, 311, 100, 70);
 		shipSprite.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/ship.png")));
+		shipSprite.setLocation(shipx, shipy);
 		
 		island1 = new JLabel("");
 		island1.setBounds(80, 26, 200, 196);
@@ -364,7 +369,7 @@ public class GameWindow implements MouseListener {
 	}
 	
 	//Gets current balance
-	private int balance() {
+	private double balance() {
 		return trader.getMoney();
 	}
 	
@@ -376,11 +381,11 @@ public class GameWindow implements MouseListener {
 	private void updateGuiElements() {
 		islandStats.setVisible(false);
 		day.setText("Day " + gameDay + "/" + gameDays);
-		money.setText("£" + Integer.toString(balance()));
+		money.setText("£" + balance());
 		shipCapacity.setValue(trader.getShip().shipCapacity());
 		damage.setValue(trader.getShip().getShipEndurance());
 		storeSellList.setListData(currentIsland.getStoreSellItems());
-		storeBuyList.setListData(currentIsland.getStoreBuyItems());
+		storeBuyList.setListData(currentIsland.getStoreBuyItems().toArray());
 		traderCargoList.setListData(trader.getShip().itemsInInventory().toArray());//Updates the jList of current players items in there inventory	
 		
 		gameOverCheck();
@@ -550,6 +555,32 @@ public class GameWindow implements MouseListener {
 		}
 	}
 	
+	private void setShipCoords(int offset)
+	{
+		switch (offset) {
+		case 0:
+			shipx = 239;
+			shipy = 139;
+			break;
+		case 1:
+			shipx = 473;
+			shipy = 574;
+			break;
+		case 2:			
+			shipx = 720;
+			shipy = 198;
+			break;
+		case 3:
+			shipx = 1159;
+			shipy = 546;
+			break;
+		case 4:
+			shipx = 1159;
+			shipy = 145;
+			break;
+		}
+	}
+	
 	/**
 	 * The islands components in the window are JLabel components.
 	 * When clicking or hovering the corresponding island object is found.
@@ -558,33 +589,26 @@ public class GameWindow implements MouseListener {
 	private void islandStats(Component islandLB) {
 		
 		Island island;
+		int offset = 0;
 		
 		if (islandLB.equals(island1)) {
 			islandStats.setLocation(430, 10);
-			shipx = 239;
-			shipy = 139;
-			island = islands[0];
+			offset = 0;
 		} else if (islandLB.equals(island2)) {
-			island = islands[1];
 			islandStats.setLocation(430, 10);
-			shipx = 473;
-			shipy = 574;
+			offset = 1;			
 		} else if (islandLB.equals(island3)) {
 			islandStats.setLocation(10, 100);
-			shipx = 720;
-			shipy = 198;
-			island = islands[2];
+			offset = 2;
 		} else if (islandLB.equals(island4)) {
 			islandStats.setLocation(10, 100);
-			shipx = 1159;
-			shipy = 546;
-			island = islands[3];
+			offset = 3;
 		} else {
 			islandStats.setLocation(10, 100);
-			shipx = 1159;
-			shipy = 145;
-			island = islands[4];
+			offset = 4;
 		}
+		island = islands[offset];
+		setShipCoords(offset);
 		
 		
 		if(!island.equals(currentIsland)) {
@@ -592,9 +616,11 @@ public class GameWindow implements MouseListener {
 			selectedIsland = island;
 			islandName.setText(island.toString());
 			selling.setListData(island.getStoreSellItems());
-			buying.setListData(island.getStoreBuyItems());
+			buying.setListData(island.getStoreBuyItems().toArray());
 			routes.setListData(currentIsland.getRoutes(island).toArray(new Route[0]));
 			islandStats.setVisible(true);
+			
+			//.stream().map( x -> x.getValue()).collect(Collectors.toList())
 		}
 		
 	}

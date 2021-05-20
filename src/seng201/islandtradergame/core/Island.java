@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.util.List;
 import java.awt.Rectangle;
 import java.awt.TexturePaint;
 import java.awt.image.BufferedImage;
@@ -70,7 +71,7 @@ public class Island extends JPanel {
 	 * 
 	 * @return Item[] The items the store buys
 	 */
-	public Item[] getStoreBuyItems()  {
+	public List<Item> getStoreBuyItems()  {
 		return islandStore.getBuyableItems();
 	}
 	

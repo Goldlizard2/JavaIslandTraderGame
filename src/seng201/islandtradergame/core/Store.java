@@ -1,16 +1,24 @@
 package seng201.islandtradergame.core;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+
 public class Store {
-	private Item[] buyableItems;
+	private List<Item> buyableItems;
 	private Item[] sellableItems;
 	
 	public Store(Item[] bItems, Item[] sItems) {
-		buyableItems = bItems;
+		buyableItems = new ArrayList<Item>();
+		for (Item item : bItems) {
+			buyableItems.add(item.cloneBuyableItem());
+		}
 		sellableItems = sItems;
 		//storeName = name;
 	}
 	
-	public Item[] getBuyableItems() {
+	public List<Item> getBuyableItems() {
 		return buyableItems;
 	}
 	
@@ -20,7 +28,7 @@ public class Store {
 	
 	public int amountBS(int selection) {
 		if (selection == 1) {
-			return buyableItems.length;
+			return buyableItems.size();
 		} else {
 			return sellableItems.length;
 	}
