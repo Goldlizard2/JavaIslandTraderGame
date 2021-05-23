@@ -1,19 +1,19 @@
 package seng201.islandtradergame.core;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 public class Item {
-	private String itemName;
+	private Random rand = new Random();
+	private String itemName, asosatedIslandName;
 	private int itemSize;
-	private String asosatedIslandName;
 	private int[] upgradeProperties;
-	private double value;
+	private float value;
 	
 	public Item(String name) {
 		itemName = name;
 	}
 	
-	public Item(String name, int size, double value) {
+	public Item(String name, int size, float value) {
 		itemName = name;	
 		itemSize = size;
 		this.value = value;
@@ -80,12 +80,19 @@ public class Item {
 		return new Item(itemName, itemSize, value);
 	}
 	
+	public double getRandomNumber(double min, double max) {
+	    return rand.nextFloat() * (max - min) + min;
+	}
+	
 	public Item cloneBuyableItem() {
 		Item toReturn = clone();
-		toReturn.value *= 1.1;
+		toReturn.value *= getRandomNumber(1.6, 2.5);
 		return toReturn;
 	}
 	
+	public int getDefence() {
+		return 0;
+	}
 
 
 }

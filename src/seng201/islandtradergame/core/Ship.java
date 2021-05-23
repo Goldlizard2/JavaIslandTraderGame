@@ -1,22 +1,13 @@
 package seng201.islandtradergame.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 public class Ship {
 	private Random rand = new Random();
-	private int shipSpeed;
-	private int shipCapacity;
-	private int shipCrewNum;
-	private int shipEndurance;
-	private int crewWage = 1;
+	private int shipSpeed, shipCapacity, shipCrewNum, shipEndurance, shipHealth, crewWage = 1, cargoValue, defence = 5;
 	private String shipName;
-	private String repairCost;
-	private ArrayList<Item> cargo = new ArrayList<Item>();
-	private ArrayList<Item> soldItems = new ArrayList<Item>();
-	private int cargoValue;
+	private ArrayList<Item> cargo = new ArrayList<Item>(), soldItems = new ArrayList<Item>();
 	
 	/**
 	 * 
@@ -30,9 +21,8 @@ public class Ship {
 		shipSpeed = speed;
 		shipCapacity = capacity;
 		shipCrewNum = crewNum;
-		shipEndurance = endurance;
-		
-		
+		shipEndurance = endurance;	
+		shipHealth = shipEndurance;
 	}
 		
 	/**
@@ -48,7 +38,7 @@ public class Ship {
 	 */
 	public boolean sellItem(Item item, Island island) {
 		for (Item itm : cargo) {
-			if (itm.getName() == item.getName()) {
+			if (itm.equals(item)) {
 				itm.itemSoldIslandName(island);
 				cargoValue -= item.getValue();
 				soldItems.add(item);
@@ -73,6 +63,10 @@ public class Ship {
 	 */
 	public String buyItem(Item item) {
 		if (item.getItemSize() <= shipCapacity) {
+			if(item instanceof ShipUpgradeCannon) {
+				defence += item.getDefence();
+			}
+			
 			shipCapacity -= item.getItemSize();
 			cargoValue += item.getValue();
 			cargo.add(new Item(item.getName()));
@@ -92,7 +86,7 @@ public class Ship {
 	}
 
 	public String toString() {
-		return "Ships name " +  shipName + "\nSpeed " + shipSpeed + "\nCost to sail per day £" + getWages() + " for " + shipCrewNum + " crew members\n";
+		return "Ships name " +  shipName + "\nSpeed " + shipSpeed + "\nCost to sail per day £" + getWages() + " for " + shipCrewNum + " crew members\nDefence " + defence;
 	}
 	
 	public int shipCapacity() {
@@ -120,9 +114,13 @@ public class Ship {
 		return shipEndurance;
 	}
 	
+	public int getShipHealth() {
+		return shipHealth;
+	}
+	
 	public int updateDamage() {
-		shipEndurance -= getRandomNumber(10, 100);
-		return shipEndurance;
+		shipHealth -= getRandomNumber(10, 100);
+		return shipHealth;
 	}
 	
 	public void repairShip() {
@@ -135,5 +133,9 @@ public class Ship {
 	
 	public int shipSpeed() {
 		return shipSpeed;
+	}
+	
+	public int getShipDefence() {
+		return defence;
 	}
 }

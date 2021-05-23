@@ -2,14 +2,14 @@ package seng201.islandtradergame.core;
 
 public class Trader {
 	private Ship traderShip;
-	private double money;
+	private float money;
 	
 	public Trader(Ship ship) {
 		traderShip = ship;
 		money = 100;
 	}
 	
-	public double getMoney() {
+	public float getMoney() {
 		return money;
 	}
 	

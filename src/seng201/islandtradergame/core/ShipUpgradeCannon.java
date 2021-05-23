@@ -2,11 +2,12 @@ package seng201.islandtradergame.core;
 
 public class ShipUpgradeCannon extends Item {
 
-	public ShipUpgradeCannon(String name, int size, int value) {
-		super(name, size, value);
+	public ShipUpgradeCannon(int value) {
+		super("Cannon", 7, value);
 	}
 	
-	public int defence() {
+	@Override
+	public int getDefence() {
 		return 20;
 	}
 

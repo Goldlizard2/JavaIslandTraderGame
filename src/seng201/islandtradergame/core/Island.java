@@ -1,27 +1,26 @@
 package seng201.islandtradergame.core;
 
 import java.awt.Dimension;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.List;
-import java.awt.Rectangle;
-import java.awt.TexturePaint;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
-public class Island extends JPanel {
+/**
+ * bruh
+ */
+public class Island extends JLabel {
+	private static final long serialVersionUID = 1L;
 	private String islandName;
 	private Store islandStore;
 	private ArrayList<Route> islandRoutes;
 	private Image myImage;
+	private String islandSprite;
 	
 	/**
 	 * Creates a island with a name store and list of routes to other islands.
@@ -29,30 +28,34 @@ public class Island extends JPanel {
 	 * @param name The name of the island 
 	 * @param store The store object for this island
 	 * @param routes The array of routes to other islands from this island
+	 * @param sprite The name of the image the island will be
 	 */
-	public Island(String name ,Store store, ArrayList<Route> routes) {
+	public Island(String name ,Store store, ArrayList<Route> routes, String sprite) {
 		islandName = name;
 		islandStore = store;
 		islandRoutes = routes;
+		islandSprite = sprite;
 		loadImages();
 	}
 	
+	/**
+	 * Loads in the image file which can be changed by changing the isalndSprite string.
+	 * This image has its size setup this is based of the images width and hight.
+	 */
 	private void loadImages() {
-
-        	myImage = new ImageIcon("src\\seng201\\islandtradergame\\ui\\gui\\Images\\island.png").getImage();
-        	
-        	var dm = new Dimension(myImage.getWidth(null), myImage.getHeight(null));
-            setPreferredSize(dm);
-
+        	myImage = new ImageIcon("src\\seng201\\islandtradergame\\ui\\gui\\Images\\" + islandSprite + ".png").getImage();
+            setPreferredSize(new Dimension(myImage.getWidth(null), myImage.getHeight(null)));
     }
 	
+	/**
+	 * Draws the image to the screen each time the paint component is called.
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
-	    
 	    super.paintComponent(g);
 	    var g2d = (Graphics2D) g;
 
-        g2d.drawImage(myImage, 100, 200, null);
+        g2d.drawImage(myImage, 0, 0, null);
 
         g2d.dispose();
 	}

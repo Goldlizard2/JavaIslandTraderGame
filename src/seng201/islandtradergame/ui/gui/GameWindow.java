@@ -10,12 +10,10 @@ import seng201.islandtradergame.core.Trader;
 
 import javax.swing.JPanel;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import java.awt.event.MouseAdapter;
@@ -24,16 +22,11 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JTextPane;
 import java.awt.Color;
-import java.awt.Component;
 
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.SwingConstants;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class GameWindow implements MouseListener {
 	
@@ -42,24 +35,19 @@ public class GameWindow implements MouseListener {
 	private Island[] islands;
 	private Trader trader;
 	private Island currentIsland;
-	private int selection;
-	private int gameDay = 0;
-	private int gameDays;
-	private int routeSelection;
+	private int gameDay, gameDays, routeSelection;
 	
 	JFrame frame;
 	private JTabbedPane tabbedPane;
 	
-	private JList traderCargoList, storeSellList, storeBuyList, selling, buying, routes;
-	DefaultListModel cargo = new DefaultListModel();
-	DefaultListModel<Route> routeModel = new DefaultListModel<Route>();
+	private JList<Item> traderCargoList, storeSellList, storeBuyList, selling, buying;
+	private JList<Route> routes;
 	private JButton acceptSelection;
-	private JLabel island1, island2, island3, island4, island5, shipSprite, islandName, day, money;
+	private JLabel shipSprite, islandName, day, money;
 	private JPanel islandStats, map, stats;
 	private boolean islandSelected = false;
 	private Island selectedIsland;
 	private JTextPane shipStats, boughtSoldItems;
-	private JLabel lblNewLabel, lblNewLabel_1;
 	private JProgressBar shipCapacity, damage;
 	private int shipx, shipy;
 	
@@ -72,17 +60,11 @@ public class GameWindow implements MouseListener {
 		islands = isl;
 		trader = trad;
 		gameDays = days;
-		
-		int islandOffset = rand.nextInt(islandNum);
-		currentIsland = islands[islandOffset];
-		setShipCoords(islandOffset);
+		currentIsland = islands[rand.nextInt(islandNum)];
 		
 		
 		initialise();
-		//map.add(currentIsland);
-		
-		frame.setVisible(true);
-		
+		frame.setVisible(true);	
 		updateGuiElements();
 	}
 
@@ -91,6 +73,7 @@ public class GameWindow implements MouseListener {
 	 * @wbp.parser.entryPoint
 	 */
 	public void initialise() {
+		
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1280, 720);
@@ -102,87 +85,6 @@ public class GameWindow implements MouseListener {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(0, 0, 1264, 681);
 		frame.getContentPane().setLayout(null);
-		
-		stats = new JPanel();
-		stats.setBounds(422, 200, 380, 260);
-		frame.getContentPane().add(stats);
-		stats.setBackground(Color.WHITE);
-		stats.setLayout(null);
-		stats.setVisible(false);
-		
-		boughtSoldItems = new JTextPane();
-		boughtSoldItems.setBackground(new Color(204, 255, 204));
-		boughtSoldItems.setBounds(187, 35, 184, 214);
-		boughtSoldItems.setEditable(false);
-		stats.add(boughtSoldItems);
-		
-		shipStats = new JTextPane();
-		shipStats.setBackground(new Color(204, 255, 204));
-		shipStats.setBounds(10, 35, 167, 214);
-		shipStats.setText((String) null);
-		shipStats.setEditable(false);
-		stats.add(shipStats);
-		
-		lblNewLabel = new JLabel("Ship Stats");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(57, 11, 70, 20);
-		stats.add(lblNewLabel);
-		
-		lblNewLabel_1 = new JLabel("Bought and Sold Items");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(210, 11, 160, 20);
-		stats.add(lblNewLabel_1);
-		
-		JPanel info = new JPanel();
-		info.setBounds(100, 0, 1164, 20);
-		frame.getContentPane().add(info);
-		info.setLayout(null);
-		
-		JButton btnStats = new JButton("Stats");
-		btnStats.addMouseListener(new MouseAdapter() {
-			int count;
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				count++;
-				if(count == 1) {
-					stats.setVisible(true);
-				}
-				else {
-					stats.setVisible(false);
-					count = 0;
-				}
-			}
-		});
-		btnStats.setBounds(1074, 0, 90, 20);
-		info.add(btnStats);
-		
-		day = new JLabel("");
-		day.setBounds(300, 0, 50, 20);
-		info.add(day);
-		
-		money = new JLabel("");
-		money.setBounds(380, 0, 40, 20);
-		info.add(money);
-		
-		damage = new JProgressBar();
-		damage.setBounds(500, 0, 100, 20);
-		damage.setStringPainted(true);
-		damage.setForeground(new Color(102, 51, 0));
-		info.add(damage);
-		
-		JLabel damageLB = new JLabel("Damage");
-		damageLB.setBounds(440, 0, 50, 20);
-		info.add(damageLB);
-		
-		shipCapacity = new JProgressBar();
-		shipCapacity.setBounds(680, 0, 100, 20);
-		shipCapacity.setStringPainted(true);
-		shipCapacity.setForeground(new Color(255, 51, 0));
-		info.add(shipCapacity);
-		
-		JLabel lblNewLabel_5 = new JLabel("Capacity");
-		lblNewLabel_5.setBounds(620, 0, 50, 20);
-		info.add(lblNewLabel_5);
 		frame.getContentPane().add(tabbedPane);
 		
 		/**
@@ -192,18 +94,99 @@ public class GameWindow implements MouseListener {
 		createStoreTab();
 	}
 	
+	/**
+	 * Creates the map tab and initlises all the isalnds, ship and the isalnds stats panel.
+	 */
 	private void createMapTab() {
-		/**
-		 * Creates the map tab.
-		 */
+		map = new JPanel();
+		map.setBackground(new Color(0, 162, 232));
+		tabbedPane.addTab("Map", null, map, null);
+		map.setLayout(null);
 		
 		/**
+		 * Initialises the isalnd stats overlay.
+		 */	
+		islandStats = new JPanel();
+		islandStats.setBounds(10, 108, 450, 300);
+		islandStats.setLayout(null);
+		islandStats.setVisible(false);
+		
+		JButton sail = new JButton("Sail");
+		sail.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (!routes.isSelectionEmpty()) {
+					sail();
+				} else {
+					JOptionPane.showMessageDialog(frame, "Please select a route");
+					
+				}
+			}
+		});
+		
+		sail.setBounds(180, 230, 89, 23);
+		islandStats.add(sail);
+		
+		islandName = new JLabel("");
+		islandName.setBounds(10, 11, 104, 14);
+		islandStats.add(islandName);
+		
+		JLabel lblNewLabel_2 = new JLabel("For sale");
+		lblNewLabel_2.setBounds(44, 36, 46, 14);
+		islandStats.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("What we buy");
+		lblNewLabel_3.setBounds(320, 36, 84, 14);
+		islandStats.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4 = new JLabel("Routes to island");
+		lblNewLabel_4.setBounds(20, 234, 104, 14);
+		islandStats.add(lblNewLabel_4);
+		
+		selling = new JList<Item>();
+		selling.setBounds(10, 61, 180, 160);
+		islandStats.add(selling);
+		
+		buying = new JList<Item>();
+		buying.setBounds(260, 61, 180, 160);
+		islandStats.add(buying);
+		
+		routes = new JList<Route>();
+		routes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		routes.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		routes.setBounds(10, 259, 430, 37);
+		islandStats.add(routes);
+
+		map.add(islandStats);
+		
+		map.addMouseListener(this);
+		
+		/**s
 		 * Initialises the island and ship sprites.
 		 */
-		JPanel storeTab = new JPanel();
-	
+		
+		shipSprite = new JLabel("");
+		shipSprite.setBounds(890, 311, 100, 70);
+		shipSprite.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/ship.png")));
+		map.add(shipSprite);
+		
+		for (int island = 0; island <= 4; island++) {
+			islands[island].setLayout(null);
+			islands[island].setVisible(true);
+			map.add(islands[island]);
+			islands[island].addMouseListener(this);
+		}
+		
+		islands[0].setBounds(80, 26, 200, 196);
+		islands[1].setBounds(215, 461, 300, 183);
+		islands[2].setBounds(627, 157, 128, 128);
+		islands[3].setBounds(1025, 431, 200, 196);
+		islands[4].setBounds(925, 26, 300, 183);
 	}
 	
+	/**
+	 * Creates the store tab and initlises all the other components in this tab.
+	 */
 	private void createStoreTab() {
 		
 		
@@ -213,7 +196,7 @@ public class GameWindow implements MouseListener {
 		/**
 		 * Initialises the store lists.
 		 */
-		traderCargoList = new JList();
+		traderCargoList = new JList<Item>();
 		traderCargoList.setBounds(105, 68, 200, 280);
 		traderCargoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		traderCargoList.addMouseListener(new MouseAdapter() {
@@ -223,14 +206,14 @@ public class GameWindow implements MouseListener {
 		/**
 		 * Initialises the stores sellabel items.
 		 */
-		storeSellList = new JList();
+		storeSellList = new JList<Item>();
 		storeSellList.setBounds(958, 68, 200, 280);
 		storeSellList.setValueIsAdjusting(true);
 		
 		/**
 		 * Initialises the stores buyabel items.
 		 */
-		storeBuyList = new JList();
+		storeBuyList = new JList<Item>();
 		storeBuyList.setBounds(315, 68, 633, 280);
 		storeBuyList.setValueIsAdjusting(true);
 		
@@ -267,110 +250,93 @@ public class GameWindow implements MouseListener {
 		storeTab.add(storeBuyList);
 		storeTab.add(storeSellList);
 		storeTab.add(acceptSelection);
-		map = new JPanel();
-		map.setBackground(new Color(0, 162, 232));
-		tabbedPane.addTab("Map", null, map, null);
+	}
+	
+	/**
+	 * Creates the overlay panel and initlises all the other components in this tab.
+	 */
+	private void createOverLay() {
+		stats = new JPanel();
+		stats.setBounds(422, 200, 380, 260);
+		frame.getContentPane().add(stats);
+		stats.setBackground(Color.WHITE);
+		stats.setLayout(null);
+		stats.setVisible(false);
 		
+		boughtSoldItems = new JTextPane();
+		boughtSoldItems.setBackground(new Color(204, 255, 204));
+		boughtSoldItems.setBounds(187, 35, 184, 214);
+		boughtSoldItems.setEditable(false);
+		stats.add(boughtSoldItems);
 		
-		shipSprite = new JLabel("");
-		shipSprite.setBounds(890, 311, 100, 70);
-		shipSprite.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/ship.png")));
-		shipSprite.setLocation(shipx, shipy);
+		shipStats = new JTextPane();
+		shipStats.setBackground(new Color(204, 255, 204));
+		shipStats.setBounds(10, 35, 167, 214);
+		shipStats.setText((String) null);
+		shipStats.setEditable(false);
+		stats.add(shipStats);
 		
-		island1 = new JLabel("");
-		island1.setBounds(80, 26, 200, 196);
-		island1.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/Tree Island.png")));
+		JLabel lblNewLabel = new JLabel("Ship Stats");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(57, 11, 70, 20);
+		stats.add(lblNewLabel);
 		
-		island2 = new JLabel("");
-		island2.setBounds(215, 461, 300, 183);
-		island2.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/PalmIsland.png")));
+		JLabel lblNewLabel_1 = new JLabel("Bought and Sold Items");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel_1.setBounds(210, 11, 160, 20);
+		stats.add(lblNewLabel_1);
 		
-		island3 = new JLabel("");
-		island3.setBounds(627, 157, 128, 128);
-		island3.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/island.png")));
+		JPanel info = new JPanel();
+		info.setBounds(100, 0, 1164, 20);
+		frame.getContentPane().add(info);
+		info.setLayout(null);
 		
-		island4 = new JLabel("");
-		island4.setBounds(1025, 431, 200, 196);
-		island4.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/Tree Island.png")));
-		
-		island5 = new JLabel("");
-		island5.setBounds(925, 26, 300, 183);
-		island5.setHorizontalAlignment(SwingConstants.CENTER);
-		island5.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/PalmIsland.png")));
-		
-		JButton sail = new JButton("Sail");
-		sail.addMouseListener(new MouseAdapter() {
+		JButton btnStats = new JButton("Stats");
+		btnStats.addMouseListener(new MouseAdapter() {
+			int count;
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (!routes.isSelectionEmpty()) {
-					sail();
-				} else {
-					JOptionPane.showMessageDialog(frame, "Please select a route");
-					
+				count++;
+				if(count == 1) {
+					stats.setVisible(true);
+				}
+				else {
+					stats.setVisible(false);
+					count = 0;
 				}
 			}
 		});
+		btnStats.setBounds(1074, 0, 90, 20);
+		info.add(btnStats);
 		
-		islandStats = new JPanel();
-		islandStats.setBounds(61, 89, 454, 307);
-		islandStats.setLayout(null);
-		islandStats.setVisible(false);
+		day = new JLabel("day");
+		day.setBounds(300, 0, 60, 20);
+		info.add(day);
 		
-		islandName = new JLabel("");
-		islandName.setBounds(10, 11, 104, 14);
-		islandStats.add(islandName);
+		money = new JLabel("9999");
+		money.setBounds(380, 0, 50, 20);
+		info.add(money);
 		
-		JLabel lblNewLabel_2 = new JLabel("For sale");
-		lblNewLabel_2.setBounds(44, 36, 46, 14);
-		islandStats.add(lblNewLabel_2);
+		damage = new JProgressBar();
+		damage.setMaximum(trader.getShip().getShipEndurance());
+		damage.setBounds(500, 0, 100, 20);
+		damage.setStringPainted(true);
+		damage.setForeground(new Color(102, 51, 0));
+		info.add(damage);
 		
-		JLabel lblNewLabel_3 = new JLabel("What we buy");
-		lblNewLabel_3.setBounds(196, 36, 84, 14);
-		islandStats.add(lblNewLabel_3);
+		JLabel damageLB = new JLabel("Damage");
+		damageLB.setBounds(440, 0, 50, 20);
+		info.add(damageLB);
 		
-		JLabel lblNewLabel_4 = new JLabel("Routes to island");
-		lblNewLabel_4.setBounds(20, 234, 104, 14);
-		islandStats.add(lblNewLabel_4);
+		shipCapacity = new JProgressBar();
+		shipCapacity.setBounds(680, 0, 100, 20);
+		shipCapacity.setStringPainted(true);
+		shipCapacity.setForeground(new Color(255, 51, 0));
+		info.add(shipCapacity);
 		
-		selling = new JList();
-		selling.setBounds(10, 61, 139, 159);
-		islandStats.add(selling);
-		
-		buying = new JList();
-		buying.setBounds(159, 61, 139, 159);
-		islandStats.add(buying);
-		
-		routes = new JList<Route>(routeModel);
-		routes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		routes.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		routes.setBounds(10, 259, 412, 37);
-		islandStats.add(routes);
-		
-		sail.setBounds(134, 230, 89, 23);
-		islandStats.add(sail);
-		map.setLayout(null);
-		map.add(islandStats);
-		map.add(shipSprite);
-		map.add(island1);
-		map.add(island3);
-		map.add(island2);
-		map.add(island4);
-		map.add(island5);
-		
-		map.addMouseListener(this);
-		island1.addMouseListener(this);
-		island2.addMouseListener(this);
-		island3.addMouseListener(this);
-		island4.addMouseListener(this);
-		island5.addMouseListener(this);
-	}
-	
-	private void createOverLay() {
-	}
-	
-	//Gets current balance
-	private double balance() {
-		return trader.getMoney();
+		JLabel lblNewLabel_5 = new JLabel("Capacity");
+		lblNewLabel_5.setBounds(620, 0, 50, 20);
+		info.add(lblNewLabel_5);
 	}
 	
 	
@@ -381,19 +347,30 @@ public class GameWindow implements MouseListener {
 	private void updateGuiElements() {
 		islandStats.setVisible(false);
 		day.setText("Day " + gameDay + "/" + gameDays);
-		money.setText("£" + balance());
+		money.setText(String.format("£ %.2f",balance()));
 		shipCapacity.setValue(trader.getShip().shipCapacity());
-		damage.setValue(trader.getShip().getShipEndurance());
+		damage.setValue(trader.getShip().getShipHealth());
+		setShipLocation();
 		storeSellList.setListData(currentIsland.getStoreSellItems());
-		storeBuyList.setListData(currentIsland.getStoreBuyItems().toArray());
-		traderCargoList.setListData(trader.getShip().itemsInInventory().toArray());//Updates the jList of current players items in there inventory	
+		storeBuyList.setListData(currentIsland.getStoreBuyItems().toArray(new Item[0]));
+		traderCargoList.setListData(trader.getShip().itemsInInventory().toArray(new Item[0]));//Updates the jList of current players items in there inventory	
+		shipStats.setText(trader.getShip().toString());
 		
 		gameOverCheck();
 	}
 	
 	/**
+	 * Gets the amount of money the player has.
+	 * 
+	 * @return double The players current balance
+	 */
+	private float balance() {
+		return trader.getMoney();
+	}
+	
+	/**
 	 * Checks if one the player can nolonger afford to fix there ship, the game has reached the amount of days set or the players balance has 
-	 * reached 0. A message is displayed to the user notifying them that the game is over.
+	 * reached 0. 
 	 */
 	private void gameOverCheck() {
 		 if (balance() < repairShipCost() || gameDay >= gameDays || balance() <= 0) {
@@ -401,8 +378,12 @@ public class GameWindow implements MouseListener {
 		 }
 	}
 	
+	/**
+	 * A message is displayed to the user notifying them that the game is over and how much money they made.
+	 */
 	private void gameOver() {
-		JOptionPane.showMessageDialog(frame, "Game Over");
+		JOptionPane.showMessageDialog(frame, "Game Over you made £" + balance());
+		quit();
 	}
 	
 	/**
@@ -459,6 +440,11 @@ public class GameWindow implements MouseListener {
 	    return rand.nextInt(max - min) + min;
 	}
 	
+	private void setShipLocation() {
+		shipx = currentIsland.getX() + currentIsland.getWidth() - 50;
+		shipy = currentIsland.getY() + currentIsland.getHeight() - 70;
+		shipSprite.setLocation(shipx, shipy);
+	}
 	
 	/**
 	 * Updates the game day to the trip length plus the current game day.
@@ -473,7 +459,6 @@ public class GameWindow implements MouseListener {
 		currentIsland = selectedIsland;
 		
 		JOptionPane.showMessageDialog(frame, "-£" + crewWage + " On crew wages");
-		shipSprite.setLocation(shipx, shipy);
 		trader.updatedMoney(-crewWage);		
 		islandSelected = false;
 		updateGuiElements();
@@ -489,11 +474,11 @@ public class GameWindow implements MouseListener {
 	}
 	
 	private void pirates(int crewWage) {
-		
-		if(rand.nextInt(1) != 1) {
+		JOptionPane.showMessageDialog(frame, "You encounter some pirates, you begin to battle with them");
+		if(rand.nextInt(trader.getShip().getShipDefence()) <= 3) {
 			JOptionPane.showMessageDialog(frame, "You lose the battle with the pirates they board your ship");
 			
-			if (trader.getShip().cargoValue() > getRandomNumber(1, 5)) {
+			if (trader.getShip().cargoValue() > getRandomNumber(25, 50)) {
 				JOptionPane.showMessageDialog(frame, "Your cargo meets the pirates value, you are let go minuse your items");
 				travelIsland(crewWage);
 			} else {
@@ -502,7 +487,7 @@ public class GameWindow implements MouseListener {
 			}
 			
 		} else {
-			JOptionPane.showMessageDialog(frame, "You win the battle with the pirates they board your ship");
+			JOptionPane.showMessageDialog(frame, "You win the battle with the pirates");
 		}		
 	}
 	
@@ -513,15 +498,15 @@ public class GameWindow implements MouseListener {
 	 * three possible sea events. These are bad whether the ship is receives a random amount of damage, 
 	 */
 	private void sail() {
-		if (trader.getShip().getShipEndurance() == 100) {
+		if (trader.getShip().getShipHealth() > 100) {
 			
 			int crewWage = trader.getCrewWage() * tripDays();
 			
 			if (balance() >= crewWage) {
 
-				if (rand.nextInt(((Route) routes.getSelectedValue()).getDangerLevel()) == 0) {
+				if (rand.nextInt(((Route) routes.getSelectedValue()).getDangerLevel()) <= 2) {
 					
-					if (rand.nextInt(2) == 0) {
+					if (rand.nextInt(3) == 0) {
 						JOptionPane.showMessageDialog(frame, "You saved some sailors you get £20 as a reward");
 						trader.updatedMoney(20);
 					}
@@ -530,11 +515,12 @@ public class GameWindow implements MouseListener {
 				} else {
 					switch(rand.nextInt(2)) {
 					case 0:
+						pirates(crewWage);
+						break;
+						
+					case 1:
 						JOptionPane.showMessageDialog(frame, "Bad Wether, your ship has been damaged -" + (100 - trader.getShip().updateDamage()));
 						travelIsland(crewWage);
-						break;
-					case 1:
-						pirates(crewWage);
 						break;
 					}
 					updateGuiElements();
@@ -555,68 +541,26 @@ public class GameWindow implements MouseListener {
 		}
 	}
 	
-	private void setShipCoords(int offset)
-	{
-		switch (offset) {
-		case 0:
-			shipx = 239;
-			shipy = 139;
-			break;
-		case 1:
-			shipx = 473;
-			shipy = 574;
-			break;
-		case 2:			
-			shipx = 720;
-			shipy = 198;
-			break;
-		case 3:
-			shipx = 1159;
-			shipy = 546;
-			break;
-		case 4:
-			shipx = 1159;
-			shipy = 145;
-			break;
-		}
-	}
-	
 	/**
 	 * The islands components in the window are JLabel components.
 	 * When clicking or hovering the corresponding island object is found.
 	 * The island stats panel is displayed with the current island stats.
 	 */
-	private void islandStats(Component islandLB) {
-		
-		Island island;
-		int offset = 0;
-		
-		if (islandLB.equals(island1)) {
-			islandStats.setLocation(430, 10);
-			offset = 0;
-		} else if (islandLB.equals(island2)) {
-			islandStats.setLocation(430, 10);
-			offset = 1;			
-		} else if (islandLB.equals(island3)) {
-			islandStats.setLocation(10, 100);
-			offset = 2;
-		} else if (islandLB.equals(island4)) {
-			islandStats.setLocation(10, 100);
-			offset = 3;
-		} else {
-			islandStats.setLocation(10, 100);
-			offset = 4;
-		}
-		island = islands[offset];
-		setShipCoords(offset);
+	private void islandStats(Island island) {
 		
 		
 		if(!island.equals(currentIsland)) {
 			
+			if(island.getX() > map.getWidth()/2) {
+				islandStats.setLocation(10, 176);
+			} else {
+				islandStats.setLocation(800, 176);
+			}
+			
 			selectedIsland = island;
 			islandName.setText(island.toString());
 			selling.setListData(island.getStoreSellItems());
-			buying.setListData(island.getStoreBuyItems().toArray());
+			buying.setListData(island.getStoreBuyItems().toArray(new Item[0]));
 			routes.setListData(currentIsland.getRoutes(island).toArray(new Route[0]));
 			islandStats.setVisible(true);
 			
@@ -631,7 +575,7 @@ public class GameWindow implements MouseListener {
 			islandSelected = false;
 			islandStats.setVisible(false);
 		} else {
-			islandStats(e.getComponent());
+			islandStats((Island) e.getComponent());
 			islandSelected = true;
 		}
 		
@@ -652,7 +596,7 @@ public class GameWindow implements MouseListener {
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		if (!e.getComponent().equals(map) && !islandSelected) {
-			islandStats(e.getComponent());
+			islandStats((Island) e.getComponent());
 		}
 	}
 

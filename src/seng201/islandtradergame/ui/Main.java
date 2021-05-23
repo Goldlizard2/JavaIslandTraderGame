@@ -5,6 +5,7 @@ import seng201.islandtradergame.core.Island;
 import seng201.islandtradergame.core.Item;
 import seng201.islandtradergame.core.Route;
 import seng201.islandtradergame.core.Ship;
+import seng201.islandtradergame.core.ShipUpgradeCannon;
 import seng201.islandtradergame.core.Store;
 import seng201.islandtradergame.core.Trader;
 import seng201.islandtradergame.ui.gui.GameWindow;
@@ -43,7 +44,7 @@ public class Main {
 			Item pickAxe = new Item("PickAxe", 2, getRandomNumber(4, 8 ));
 			Item gunPowder = new Item("gunPowder", 1, getRandomNumber(4, 8 ));
 			Item hammer = new Item("Hammer", 2, getRandomNumber(4, 8 ));
-			Item cannon = new Item("Cannon", 5, getRandomNumber(4, 8 ));
+			Item cannon = new ShipUpgradeCannon(getRandomNumber(4, 8 ));
 			
 			//Clothes
 			Item woolJumper = new Item("Wool Jumper", 2, getRandomNumber(4, 8 ));
@@ -109,16 +110,15 @@ public class Main {
 	* Each island has two routes from itself to another island
 	*/
 	private void islandSetup() {
-		islands[0] = new Island("Anisly island", aStore, a); 
-		islands[1] = new Island("Berkly island", bStore, b); 
-		islands[2] = new Island("Montoriki island", mStore, m); 
-		islands[3] = new Island("Quail island", qStore, q); 
-		islands[4] = new Island("Ohinau island", oStore, o); 
+		islands[0] = new Island("Anisly island", aStore, a, "Tree Island"); 
+		islands[1] = new Island("Berkly island", bStore, b, "PalmIsland"); 
+		islands[2] = new Island("Montoriki island", mStore, m, "island"); 
+		islands[3] = new Island("Quail island", qStore, q, "Tree Island"); 
+		islands[4] = new Island("Ohinau island", oStore, o, "PalmIsland"); 
 		
 		int g = 1;
 		for (int c = 0; c < 4; c++) {
 			for (int d = g;d < 5; d++) {
-				System.out.println(d);
 				//Creates a route between two islands which has a distance and danger probability out of 10. 10 is 100% & 1 is 10%
 				r1 = new Route(islands[c], islands[d], getRandomNumber(4, 8), getRandomNumber(1, 6));
 				r2 = new Route(islands[c], islands[d], getRandomNumber(1, 4), getRandomNumber(6, 10));	
@@ -146,12 +146,11 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		Main it = new Main();
-		it.islandSetup();
-		int shipSize = 1;
-		Ship ship = new Ship("James" ,shipSize, 100 * shipSize, shipSize, 100);
+		Main main = new Main();
+		main.islandSetup();
+		Ship ship = new Ship("James" ,1, 100 * 1, 1, 100);
 		Trader trader = new Trader(ship);
-		//GameWindow game = new GameWindow(islands, trader, 50);
+		//new GameWindow(islands, trader, 50);
 		new MainMenu(islands);
 	}
 }
