@@ -132,7 +132,7 @@ public class GameWindow implements MouseListener {
 		islandStats.add(islandName);
 		
 		JLabel lblNewLabel_2 = new JLabel("For sale");
-		lblNewLabel_2.setBounds(44, 36, 46, 14);
+		lblNewLabel_2.setBounds(44, 36, 70, 14);
 		islandStats.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("What we buy");
@@ -278,12 +278,12 @@ public class GameWindow implements MouseListener {
 		
 		JLabel lblNewLabel = new JLabel("Ship Stats");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel.setBounds(57, 11, 70, 20);
+		lblNewLabel.setBounds(57, 11, 99, 20);
 		stats.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Bought and Sold Items");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_1.setBounds(210, 11, 160, 20);
+		lblNewLabel_1.setBounds(187, 11, 183, 20);
 		stats.add(lblNewLabel_1);
 		
 		JPanel info = new JPanel();
@@ -314,28 +314,28 @@ public class GameWindow implements MouseListener {
 		info.add(day);
 		
 		money = new JLabel("9999");
-		money.setBounds(380, 0, 50, 20);
+		money.setBounds(370, 0, 50, 20);
 		info.add(money);
 		
 		damage = new JProgressBar();
 		damage.setMaximum(trader.getShip().getShipEndurance());
-		damage.setBounds(500, 0, 100, 20);
+		damage.setBounds(536, 2, 100, 20);
 		damage.setStringPainted(true);
 		damage.setForeground(new Color(102, 51, 0));
 		info.add(damage);
 		
 		JLabel damageLB = new JLabel("Damage");
-		damageLB.setBounds(440, 0, 50, 20);
+		damageLB.setBounds(469, 0, 70, 20);
 		info.add(damageLB);
 		
 		shipCapacity = new JProgressBar();
-		shipCapacity.setBounds(680, 0, 100, 20);
+		shipCapacity.setBounds(707, 2, 100, 20);
 		shipCapacity.setStringPainted(true);
 		shipCapacity.setForeground(new Color(255, 51, 0));
 		info.add(shipCapacity);
 		
 		JLabel lblNewLabel_5 = new JLabel("Capacity");
-		lblNewLabel_5.setBounds(620, 0, 50, 20);
+		lblNewLabel_5.setBounds(646, 0, 70, 20);
 		info.add(lblNewLabel_5);
 	}
 	
@@ -369,7 +369,7 @@ public class GameWindow implements MouseListener {
 	}
 	
 	/**
-	 * Checks if one the player can nolonger afford to fix there ship, the game has reached the amount of days set or the players balance has 
+	 * Checks if one the player can no longer afford to fix there ship, the game has reached the amount of days set or the players balance has 
 	 * reached 0. 
 	 */
 	private void gameOverCheck() {
@@ -404,8 +404,8 @@ public class GameWindow implements MouseListener {
 	}
 	
 	/**
-	 * Creates a two strings containg the items the user has bought and sold
-	 * This is done by looping through the list of bought or sold items and adding the retund stging to a variable this is then displayed on a JTextPanel
+	 * Creates a two strings containing the items the user has bought and sold
+	 * This is done by looping through the list of bought or sold items and adding the returned string to a variable this is then displayed on a JTextPanel
 	 */
 	private void shoppingHistory() {
 		String boughtItems = "";
@@ -477,7 +477,7 @@ public class GameWindow implements MouseListener {
 		if(rand.nextInt(trader.getShip().getShipDefence()) <= 3) {
 			JOptionPane.showMessageDialog(frame, "You lose the battle with the pirates they board your ship");
 			
-			if (trader.getShip().cargoValue() > getRandomNumber(25, 50)) {
+			if (trader.getShip().cargoValue() > getRandomNumber(20, 30)) {
 				JOptionPane.showMessageDialog(frame, "Your cargo meets the pirates value, you are let go minuse your items");
 				travelIsland(crewWage);
 			} else {
@@ -515,6 +515,7 @@ public class GameWindow implements MouseListener {
 					switch(rand.nextInt(3)) {
 					case 0:
 						pirates(crewWage);
+						travelIsland(crewWage);
 						break;
 						
 					case 1:

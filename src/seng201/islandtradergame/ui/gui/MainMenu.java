@@ -18,7 +18,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -82,7 +81,7 @@ public class MainMenu implements MouseListener {
 		});
 		
 		JPanel ships = new JPanel();
-		ships.setBounds(10, 153, 136, 182);
+		ships.setBounds(10, 153, 144, 182);
 		ships.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Select a ship");
@@ -122,8 +121,8 @@ public class MainMenu implements MouseListener {
 		ships.add(shipErrorLB);
 		shipErrorLB.setForeground(Color.RED);
 		
-		JLabel lblNewLabel_3 = new JLabel("Trader Island");
-		lblNewLabel_3.setBounds(322, 11, 136, 41);
+		JLabel lblNewLabel_3 = new JLabel("Welcome to Trader Island");
+		lblNewLabel_3.setBounds(304, 10, 262, 41);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
@@ -149,10 +148,10 @@ public class MainMenu implements MouseListener {
 		nameErrorLB.setForeground(Color.RED);
 		
 		days = new JPanel();
-		days.setBounds(10, 346, 320, 111);
+		days.setBounds(10, 346, 315, 111);
 		days.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Select Days the game will run for");
+		JLabel lblNewLabel_2 = new JLabel("Select a game length in days\r\n");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(10, 11, 326, 25);
 		days.add(lblNewLabel_2);

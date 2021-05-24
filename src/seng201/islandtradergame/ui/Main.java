@@ -4,11 +4,8 @@ package seng201.islandtradergame.ui;
 import seng201.islandtradergame.core.Island;
 import seng201.islandtradergame.core.Item;
 import seng201.islandtradergame.core.Route;
-import seng201.islandtradergame.core.Ship;
 import seng201.islandtradergame.core.ShipUpgradeCannon;
 import seng201.islandtradergame.core.Store;
-import seng201.islandtradergame.core.Trader;
-import seng201.islandtradergame.ui.gui.GameWindow;
 import seng201.islandtradergame.ui.gui.MainMenu;
 
 import java.util.ArrayList;
@@ -148,9 +145,6 @@ public class Main {
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.islandSetup();
-		Ship ship = new Ship("James" ,1, 100 * 1, 1, 100);
-		Trader trader = new Trader(ship);
-		//new GameWindow(islands, trader, 50);
 		new MainMenu(islands);
 	}
 }

@@ -79,7 +79,7 @@ public class Item {
 	
 	/**
 	 * 
-	 * @return
+	 * @return itemName this is a string of the items name
 	 */
 	public String getName() {
 		return itemName;
@@ -87,7 +87,7 @@ public class Item {
 	
 	/**
 	 * 
-	 * @return
+	 * @return itemSize this is an integer of the items size
 	 */
 	public int getItemSize() {
 		return itemSize;
@@ -101,13 +101,6 @@ public class Item {
 		return value;
 	}
 	
-	/**
-	 * 
-	 */
-	public Item clone() {
-		return new Item(itemName, itemSize, value);
-	}
-	
 	public double getRandomNumber(double min, double max) {
 	    return rand.nextFloat() * (max - min) + min;
 	}
@@ -117,7 +110,7 @@ public class Item {
 	 * @return
 	 */
 	public Item cloneBuyableItem() {
-		Item toReturn = clone();
+		Item toReturn = new Item(itemName, itemSize, value);
 		toReturn.value *= getRandomNumber(1.6, 2.5);
 		return toReturn;
 	}
