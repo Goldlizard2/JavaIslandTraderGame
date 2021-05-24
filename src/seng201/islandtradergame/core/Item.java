@@ -2,6 +2,11 @@ package seng201.islandtradergame.core;
 
 import java.util.Random;
 
+/**
+ * 
+ * @author EpicPC
+ *
+ */
 public class Item {
 	private Random rand = new Random();
 	private String itemName, asosatedIslandName;

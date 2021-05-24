@@ -49,7 +49,7 @@ public class Route {
 	
 	/**
 	 * 
-	 * @return
+	 * @return tripDistance The distance this route is 
 	 */
 	public int getRouteDistance() {
 		return tripDistance;
