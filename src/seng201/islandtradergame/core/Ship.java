@@ -3,6 +3,11 @@ package seng201.islandtradergame.core;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * 
+ * @author EpicPC
+ *
+ */
 public class Ship {
 	private Random rand = new Random();
 	private int shipSpeed, shipCapacity, shipCrewNum, shipEndurance, shipHealth, crewWage = 1, cargoValue, defence = 5;
@@ -10,11 +15,13 @@ public class Ship {
 	private ArrayList<Item> cargo = new ArrayList<Item>(), soldItems = new ArrayList<Item>();
 	
 	/**
+	 * Creates a ship
 	 * 
-	 *  
-	 *  @param name The name of ship they user inputed in the main menu
-	 *  @param speed The speed of the ship selected from the main menu can be (1 - 4)
-	 *  @param capacity The ship capacity selected can be (100kL - 400kL)
+	 * @param name The name of ship they user inputed in the main menu
+	 * @param speed The speed of the ship selected from the main menu can be (1 - 4)
+	 * @param capacity The ship capacity selected can be (100kL - 400kL)
+	 * @param crewNum
+	 * @param endurance
 	 */
 	public Ship(String name, int speed, int capacity, int crewNum, int endurance) {
 		shipName = name;
@@ -76,6 +83,11 @@ public class Ship {
 		}
 	}
 	
+	/**
+	 * Clears the cargo list and returns cargoValue. 
+	 * 
+	 * @return cargoValue The value of all the items in your cargo
+	 */
 	public int cargoValue() {	
 		cargo.clear();
 		return cargoValue;
@@ -85,57 +97,109 @@ public class Ship {
 	    return rand.nextInt(max - min) + min;
 	}
 
+	/**
+	 * Returns a string containing all the info about the ship and crew
+	 */
 	public String toString() {
 		return "Ships name " +  shipName + "\nSpeed " + shipSpeed + "\nCost to sail per day £" + getWages() + " for " + shipCrewNum + " crew members\nDefence " + defence;
 	}
 	
+	/**
+	 * Returns the ships capacity.
+	 * 
+	 * @return shipCapacity The ships current capacity
+	 */
 	public int shipCapacity() {
 		return shipCapacity;
 	}
 	
-	public int getCrewNum() {
-		return shipCrewNum;
-	}
-	
+	/**
+	 * Returns the repair cost.
+	 * 
+	 * @return int The cost to repair the traders ship
+	 */
 	public int repairCost() {
-		return (100 - shipEndurance)/10;
+		return (shipEndurance - shipHealth)/10;
 	}
 	
-	
+	/**
+	 * Returns the cargo list.
+	 * 
+	 * @return cargo The list of items the user has bought
+	 */
 	public ArrayList<Item> itemsInInventory() {
 		return cargo;
 	}
 	
+	/**
+	 * Returns the soldItems list.
+	 * 
+	 * @return soldItems The list of items the user has sold
+	 */
 	public ArrayList<Item> getSoldItems() {
 		return soldItems;
 	}
 	
+	/**
+	 * Returns the shipEndurance.
+	 * 
+	 * @return shipEndurance The ships state with no damage.
+	 */
 	public int getShipEndurance() {
 		return shipEndurance;
 	}
 	
+	/**
+	 * Returns shipHealth.
+	 * 
+	 * @return shipHealth The ships state currently
+	 */
 	public int getShipHealth() {
 		return shipHealth;
 	}
 	
+	/**
+	 * Updates the ships health by applying a random amount of damage (10 to 99).
+	 * 
+	 * @return int The amount of damage the ship received
+	 */
 	public int updateDamage() {
 		shipHealth -= getRandomNumber(10, 100);
-		return shipHealth;
+		return shipEndurance - shipHealth;
 	}
 	
+	/**
+	 * Sets the ships health to its original value.
+	 */
 	public void repairShip() {
-		shipEndurance = 100;
+		shipHealth = shipEndurance;
 	}
 	
+	/**
+	 * Returns the cost to pay all crew.
+	 * 
+	 * @return int The total amount to pay all crew
+	 */
 	public int getWages() {
 		return shipCrewNum * crewWage;
 	}
 	
+	/**
+	 * Returns shipSpeed.
+	 * 
+	 * @return shipSpeed The speed the ship travels
+	 */
 	public int shipSpeed() {
 		return shipSpeed;
 	}
 	
+	/**
+	 * Returns defence.
+	 * 
+	 * @return defence The defence the ship has against attacks
+	 */
 	public int getShipDefence() {
 		return defence;
 	}
 }
+

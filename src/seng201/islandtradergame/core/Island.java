@@ -99,17 +99,6 @@ public class Island extends JLabel {
 	}
 	
 	/**
-	 * Returns the danger level of the selected route
-	 * 
-	 * @param routeSelection An index of the islandRoutes list for the selected route
-	 * 
-	 * @return int The danger level of the route
-	 */
-	public int routeDangerLevel(int routeSelection) {
-		return islandRoutes.get(routeSelection).getDangerLevel();
-	}
-	
-	/**
 	 * Creates a list of all the routes to an island for the current island from the islands routes list
 	 * 
 	 * @param island The island the player wants to travel to

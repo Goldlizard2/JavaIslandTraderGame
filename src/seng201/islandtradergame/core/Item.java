@@ -6,13 +6,22 @@ public class Item {
 	private Random rand = new Random();
 	private String itemName, asosatedIslandName;
 	private int itemSize;
-	private int[] upgradeProperties;
 	private float value;
 	
+	/**
+	 * 
+	 * @param name
+	 */
 	public Item(String name) {
 		itemName = name;
 	}
 	
+	/**
+	 * 
+	 * @param name
+	 * @param size
+	 * @param value
+	 */
 	public Item(String name, int size, float value) {
 		itemName = name;	
 		itemSize = size;
@@ -47,7 +56,7 @@ public class Item {
 	}
 	
 	/**
-	 * Constructs a String of the {@value toString()} and where the item was sold 
+	 * Constructs a String of toString and where the item was sold 
 	 * 
 	 * @return String   
 	 */
@@ -55,27 +64,41 @@ public class Item {
 		return toString() + " was sold " + asosatedIslandName;
 	}
 	
-	
+	/**
+	 * 
+	 * @param island
+	 */
 	public void itemSoldIslandName(Island island) {
 		asosatedIslandName = island.toString();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return itemName;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getItemSize() {
 		return itemSize;
 	}
 	
-	public int[] getUpgradeProperties() {
-		return upgradeProperties;
-	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public double getValue() {
 		return value;
 	}
 	
+	/**
+	 * 
+	 */
 	public Item clone() {
 		return new Item(itemName, itemSize, value);
 	}
@@ -84,15 +107,21 @@ public class Item {
 	    return rand.nextFloat() * (max - min) + min;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public Item cloneBuyableItem() {
 		Item toReturn = clone();
 		toReturn.value *= getRandomNumber(1.6, 2.5);
 		return toReturn;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getDefence() {
 		return 0;
 	}
-
-
 }

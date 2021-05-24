@@ -414,7 +414,6 @@ public class GameWindow implements MouseListener {
 			boughtItems += bought + "\n";
 		}
 		
-		System.out.println("Sold items:");
 		for (Item sold : trader.getShip().getSoldItems()) {
 			soldItems += sold.itemOrigin() + "\n";
 		}
@@ -493,8 +492,8 @@ public class GameWindow implements MouseListener {
 	
 	/**
 	 * Checks if the ship has no damage and if you have enough money to sail.
-	 * Each route has a probility of an event ocuring the larger this value the higher chance a sea event will happen.
-	 * If the random number gerated from the value equals one you have made it safle to the island. Otherwise a random event is piked from the
+	 * Each route has a probability of an event occurring the larger this value the higher chance a sea event will happen.
+	 * If the random number generated from the value is less than two you have made it safe to the island. Otherwise a random event is piked from the
 	 * three possible sea events. These are bad whether the ship is receives a random amount of damage, 
 	 */
 	private void sail() {
@@ -513,12 +512,13 @@ public class GameWindow implements MouseListener {
 					
 					travelIsland(crewWage);
 				} else {
-					switch(rand.nextInt(2)) {
+					switch(rand.nextInt(3)) {
 					case 0:
 						pirates(crewWage);
 						break;
 						
 					case 1:
+					case 2:
 						JOptionPane.showMessageDialog(frame, "Bad Wether, your ship has been damaged -" + (100 - trader.getShip().updateDamage()));
 						travelIsland(crewWage);
 						break;
