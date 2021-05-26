@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import seng201.islandtradergame.ui.gui.GameWindow;
-
 /**
  * bruh
  */

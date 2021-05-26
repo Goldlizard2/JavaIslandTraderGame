@@ -99,7 +99,7 @@ public class GameWindow implements MouseListener {
 	 */
 	private void createMapTab() {
 		map = new JPanel();
-		map.setBackground(Color.ORANGE);
+		map.setBackground(new Color(0, 162, 232));
 		tabbedPane.addTab("Map", null, map, null);
 		map.setLayout(null);
 		
