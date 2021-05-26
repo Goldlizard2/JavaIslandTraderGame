@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This class implements a Store which specifies the items that can be bought and sold by the trader.
  * 
- * @author EpicPC
- *
+ * @author Kei Carden
  */
 public class Store {
 	private List<Item> buyableItems;

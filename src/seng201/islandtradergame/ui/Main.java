@@ -11,6 +11,11 @@ import seng201.islandtradergame.ui.gui.MainMenu;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This class implements Main which creates the items, stores and islands.
+ * 
+ * @author Kei Carden
+ */
 public class Main {
 	private Random rand = new Random();
 	private static int islandNum = 5;
@@ -142,6 +147,11 @@ public class Main {
 			
 	}
 	
+	/**
+	 * Crates the mainMenu and setup the islands
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.islandSetup();

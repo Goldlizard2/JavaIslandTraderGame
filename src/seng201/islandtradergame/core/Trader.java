@@ -1,9 +1,9 @@
 package seng201.islandtradergame.core;
 
 /**
- * 
- * @author EpicPC
+ * This class implements a Trader which specifies the amount of money the trader has as well as what ship they have.
  *
+ * @author Kei Carden
  */
 public class Trader {
 	private Ship traderShip;

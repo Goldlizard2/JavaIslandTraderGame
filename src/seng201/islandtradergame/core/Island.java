@@ -12,14 +12,32 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 /**
- * bruh
+ * This class implements an Island that can be travelled to, this island has its own store an posible routes to
+ * get here from other islands.
+ *
+ * @author Kei Carden
  */
 public class Island extends JLabel {
 	private static final long serialVersionUID = 1L;
+	/**
+	 * The name of the island
+	 */
 	private String islandName;
+	/**
+	 * The store object for this island
+	 */
 	private Store islandStore;
+	/**
+	 * All the routes to this island
+	 */
 	private ArrayList<Route> islandRoutes;
+	/**
+	 * The image that will be displayed for this island
+	 */
 	private Image myImage;
+	/**
+	 * The name of the sprite that should be used for this island
+	 */
 	private String islandSprite;
 	
 	/**
@@ -91,7 +109,6 @@ public class Island extends JLabel {
 	 * Returns the distance the other island is from the current island
 	 * 
 	 * @param routeSelection An index of the islandRoutes list for the selected route
-	 * 
 	 * @return int The distance the island is 
 	 */
 	public int routeDistance(int routeSelection) {
@@ -102,7 +119,6 @@ public class Island extends JLabel {
 	 * Creates a list of all the routes to an island for the current island from the islands routes list
 	 * 
 	 * @param island The island the player wants to travel to
-	 * 
 	 * @return ArrayList<Route> A list of all the possible routes to this island
 	 */
 	public ArrayList<Route> getRoutes(Island island) {

@@ -24,6 +24,12 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+/**
+ * This class implements the mainMenu GUI, this GUI is used to set up some of the game paramiters such as ship name, how many day the game will run for
+ * and what ship the player wants to use.
+ *
+ * @author Kei Carden
+ */
 public class MainMenu implements MouseListener {
 
 	private JFrame mainMenuFrame;
@@ -32,7 +38,7 @@ public class MainMenu implements MouseListener {
 	private JTextField traderNameTextField;
 	private JLabel nameErrorLB, shipErrorLB;
 	private String nameError = "Must only contain letters and have a minimum of 3 characters", shipNotSelectedError = "You must select a ship";
-	private int crew = 2, shipSize, hullCapacityEndurance = 100;
+	private int crew = 2, shipSize, hullCapacity = 10, endurance = 100;
 	private JRadioButton ship1, ship2, ship3, ship4;
 	private ButtonGroup radioGroup = new ButtonGroup();
 	private boolean shipSelected = false;
@@ -73,7 +79,7 @@ public class MainMenu implements MouseListener {
 			
 			@Override
 			public void actionPerformed(ActionEvent  e) {
-				Ship ship = new Ship(traderNameTextField.getText(), shipSize, hullCapacityEndurance * shipSize, crew * shipSize, 500 - (shipSize * hullCapacityEndurance));
+				Ship ship = new Ship(traderNameTextField.getText(), shipSize, hullCapacity * shipSize, crew * shipSize, 500 - (shipSize * endurance));
 				Trader trader = new Trader(ship);
 				new GameWindow(islands, trader, slider.getValue());
 				quit();
@@ -221,7 +227,7 @@ public class MainMenu implements MouseListener {
 		
 		capacityBar = new JProgressBar();
 		capacityBar.setStringPainted(true);
-		capacityBar.setMaximum(1000);
+		capacityBar.setMaximum(80);
 		capacityBar.setForeground(Color.ORANGE);
 		capacityBar.setBounds(80, 36, 100, 14);
 		shipStats.add(capacityBar);
@@ -267,9 +273,9 @@ public class MainMenu implements MouseListener {
 	private void barStats(int size) {
 		shipStats.setVisible(true);
 		speedBar.setValue(5 - size);
-		capacityBar.setValue(size * hullCapacityEndurance);
+		capacityBar.setValue(size * hullCapacity);
 		crewNumBar.setValue(size);
-		enduranceBar.setValue(500 - (size * hullCapacityEndurance));
+		enduranceBar.setValue(500 - (size * endurance));
 		shipSize = size;
 	}
 	

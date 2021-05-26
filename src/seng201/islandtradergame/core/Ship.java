@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * 
- * @author EpicPC
+ * This class implements a Ship which contains the traders bought items and can have have more capacity and travel faster depending on the ship created.
  *
+ * @author Kei Carden
  */
 public class Ship {
 	private Random rand = new Random();
@@ -15,13 +15,13 @@ public class Ship {
 	private ArrayList<Item> cargo = new ArrayList<Item>(), soldItems = new ArrayList<Item>();
 	
 	/**
-	 * Creates a ship
+	 * Creates a ship with a name, speed, capacity, crew and endurance.
 	 * 
 	 * @param name The name of ship they user inputed in the main menu
 	 * @param speed The speed of the ship selected from the main menu can be (1 - 4)
 	 * @param capacity The ship capacity selected can be (100kL - 400kL)
-	 * @param crewNum
-	 * @param endurance
+	 * @param crewNum The number of crew on the ship
+	 * @param endurance How resilient the ship is against damage
 	 */
 	public Ship(String name, int speed, int capacity, int crewNum, int endurance) {
 		shipName = name;

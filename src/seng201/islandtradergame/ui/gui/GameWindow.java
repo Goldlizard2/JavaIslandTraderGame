@@ -28,6 +28,11 @@ import javax.swing.JProgressBar;
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
 
+/**
+ * This class implements the gameWindow GUI, this is used for the game itself. User interactions with GUI components are used to play the game.
+ *
+ * @author Kei Carden
+ */
 public class GameWindow implements MouseListener {
 	
 	private Random rand = new Random();
@@ -45,7 +50,7 @@ public class GameWindow implements MouseListener {
 	private JButton acceptSelection;
 	private JLabel shipSprite, islandName, day, money;
 	private JPanel islandStats, map, stats;
-	private boolean islandSelected = false;
+	private boolean islandSelected = false, statsSelected = false;
 	private Island selectedIsland;
 	private JTextPane shipStats, boughtSoldItems;
 	private JProgressBar shipCapacity, damage;
@@ -104,7 +109,7 @@ public class GameWindow implements MouseListener {
 		map.setLayout(null);
 		
 		/**
-		 * Initialises the isalnd stats overlay.
+		 * Initialises the island stats overlay.
 		 */	
 		islandStats = new JPanel();
 		islandStats.setBounds(10, 108, 450, 300);
@@ -299,9 +304,11 @@ public class GameWindow implements MouseListener {
 				count++;
 				if(count == 1) {
 					stats.setVisible(true);
+					statsSelected = true;
 				}
 				else {
 					stats.setVisible(false);
+					statsSelected = false;
 					count = 0;
 				}
 			}
@@ -329,6 +336,7 @@ public class GameWindow implements MouseListener {
 		info.add(damageLB);
 		
 		shipCapacity = new JProgressBar();
+		shipCapacity.setMaximum(trader.getShip().shipCapacity());
 		shipCapacity.setBounds(707, 2, 100, 20);
 		shipCapacity.setStringPainted(true);
 		shipCapacity.setForeground(new Color(255, 51, 0));
@@ -487,6 +495,7 @@ public class GameWindow implements MouseListener {
 			
 		} else {
 			JOptionPane.showMessageDialog(frame, "You win the battle with the pirates");
+			travelIsland(crewWage);
 		}		
 	}
 	
@@ -497,7 +506,7 @@ public class GameWindow implements MouseListener {
 	 * three possible sea events. These are bad whether the ship is receives a random amount of damage, 
 	 */
 	private void sail() {
-		if (trader.getShip().getShipHealth() > 100) {
+		if (trader.getShip().getShipHealth() >= 100) {
 			
 			int crewWage = trader.getCrewWage() * tripDays();
 			
@@ -515,7 +524,6 @@ public class GameWindow implements MouseListener {
 					switch(rand.nextInt(3)) {
 					case 0:
 						pirates(crewWage);
-						travelIsland(crewWage);
 						break;
 						
 					case 1:
@@ -564,8 +572,6 @@ public class GameWindow implements MouseListener {
 			buying.setListData(island.getStoreBuyItems().toArray(new Item[0]));
 			routes.setListData(currentIsland.getRoutes(island).toArray(new Route[0]));
 			islandStats.setVisible(true);
-			
-			//.stream().map( x -> x.getValue()).collect(Collectors.toList())
 		}
 		
 	}
@@ -575,7 +581,7 @@ public class GameWindow implements MouseListener {
 		if (e.getComponent().equals(map)) {
 			islandSelected = false;
 			islandStats.setVisible(false);
-		} else {
+		} else if (!statsSelected){
 			islandStats((Island) e.getComponent());
 			islandSelected = true;
 		}
@@ -596,7 +602,7 @@ public class GameWindow implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		if (!e.getComponent().equals(map) && !islandSelected) {
+		if (!e.getComponent().equals(map) && !islandSelected && !statsSelected) {
 			islandStats((Island) e.getComponent());
 		}
 	}

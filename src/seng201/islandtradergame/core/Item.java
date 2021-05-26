@@ -3,17 +3,32 @@ package seng201.islandtradergame.core;
 import java.util.Random;
 
 /**
- * 
- * @author EpicPC
+ * This class implements an Item which can be bought and sold at the other islands in exchange
+ * for money. The items take up space on the ship so the trader must make sure not to buy to much at once.
  *
+ * @author Kei Carden
  */
 public class Item {
 	private Random rand = new Random();
-	private String itemName, asosatedIslandName;
+	/**
+	 * The name of the item
+	 */
+	private String itemName, 
+	/**
+	 * The name of the island that the item was sold at
+	 */
+	asosatedIslandName;
+	/**
+	 * The size of the item
+	 */
 	private int itemSize;
+	/**
+	 * The sell/buy value of the item
+	 */
 	private float value;
 	
 	/**
+	 * Creates a Item with just a name, this is the items stored in the traders cargo.
 	 * 
 	 * @param name
 	 */
@@ -22,6 +37,7 @@ public class Item {
 	}
 	
 	/**
+	 * Creates a Item with a specific name, size and value.
 	 * 
 	 * @param name
 	 * @param size
@@ -33,6 +49,12 @@ public class Item {
 		this.value = value;
 	}
 	
+	/**
+	 * Compare the name of this object to the name of another object if they have the same name they are the same object.
+	 * 
+	 * @param obj The object being compared to this item object
+	 * @return boolean Whether the two objects have the same name or not
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
@@ -47,9 +69,10 @@ public class Item {
 	}
 	
 	/**
-	 * Constructs a string of the items value name and size
+	 * If the item has not value e.g. 0 then only the name of the item is returned.
+	 * Otherwise the name, value and size are returned in a formated string.
 	 * 
-	 * @return String   
+	 * @return String The info about the item
 	 */
 	public String toString() {
 		if(value == 0) {
@@ -61,23 +84,25 @@ public class Item {
 	}
 	
 	/**
-	 * Constructs a String of toString and where the item was sold 
+	 * Constructs a String of toString and where the item was sold. 
 	 * 
-	 * @return String   
+	 * @return String All info about the item
 	 */
 	public String itemOrigin() {
 		return toString() + " was sold " + asosatedIslandName;
 	}
 	
 	/**
+	 * Sets the asosatedIslandName to the parsed in islands name.
 	 * 
-	 * @param island
+	 * @param island The island the item was sold at
 	 */
 	public void itemSoldIslandName(Island island) {
 		asosatedIslandName = island.toString();
 	}
 	
 	/**
+	 * Returns the name of the item.
 	 * 
 	 * @return itemName this is a string of the items name
 	 */
@@ -86,6 +111,7 @@ public class Item {
 	}
 	
 	/**
+	 * Returns the size of the item.
 	 * 
 	 * @return itemSize this is an integer of the items size
 	 */
@@ -94,8 +120,9 @@ public class Item {
 	}
 	
 	/**
+	 * Returns the value of the item.
 	 * 
-	 * @return
+	 * @return double The item value
 	 */
 	public double getValue() {
 		return value;
@@ -106,8 +133,10 @@ public class Item {
 	}
 	
 	/**
+	 * Creates an exact copy of the item with a changed value.
+	 * The new value is made by multiplying a random number between 1.6 and 2.5 wit the old value.
 	 * 
-	 * @return
+	 * @return Item The same item with a different value
 	 */
 	public Item cloneBuyableItem() {
 		Item toReturn = new Item(itemName, itemSize, value);
@@ -116,8 +145,9 @@ public class Item {
 	}
 	
 	/**
+	 * Returns the defence of the item.
 	 * 
-	 * @return
+	 * @return int The defence value of the item
 	 */
 	public int getDefence() {
 		return 0;
