@@ -17,18 +17,48 @@ import java.util.Random;
  * @author Kei Carden
  */
 public class Main {
+	/**
+	 * Creates a random object
+	 */
 	private Random rand = new Random();
+	/**
+	 * The number of islands
+	 */
 	private static int islandNum = 5;
+	/**
+	 * Creates an array to hold the islands
+	 */
 	private static Island[] islands = new Island[islandNum];
 	
-	Route r1;
-	Route r2;
+	/**
+	 * Creates route 1 with no values
+	 */
+	private Route routeOne;
+	/**
+	 * Creates route 2 with no values
+	 */
+	private Route routeTwo;
 
-	ArrayList<Route> a = new ArrayList<Route>();
-	ArrayList<Route> b = new ArrayList<Route>();
-	ArrayList<Route> m = new ArrayList<Route>();
-	ArrayList<Route> q = new ArrayList<Route>();
-	ArrayList<Route> o = new ArrayList<Route>();
+	/**
+	 * A set of routes to Anisly island
+	 */
+	ArrayList<Route> anislyRoutes = new ArrayList<Route>();
+	/**
+	 * A set of routes to Berkly island
+	 */
+	ArrayList<Route> berklyRoutes = new ArrayList<Route>();
+	/**
+	 * A set of routes to Montoriki island
+	 */
+	ArrayList<Route> montorikiRoutes = new ArrayList<Route>();
+	/**
+	 * A set of routes to Quail island
+	 */
+	ArrayList<Route> quailRoutes = new ArrayList<Route>();
+	/**
+	 * A set of routes to Ohinau island
+	 */
+	ArrayList<Route> ohinauRoutes = new ArrayList<Route>();
 	
 		//Creates items with a item name and item size in L
 			//Food liveStock
@@ -66,32 +96,32 @@ public class Main {
 			//Creates list of items each store sells and buys
 			
 			//Sells food products buys tools and clothes
-			Item[] aStoreB = {hammer, planks, leatherBoots, woolJumper};
-			Item[] aStoreS = {bread, rice, cow, pig, sheep, potassiumNitrate};
+			Item[] anislyStoreBuy = {hammer, planks, leatherBoots, woolJumper};
+			Item[] anislyStoreSell = {bread, rice, cow, pig, sheep, potassiumNitrate};
 			
 			//Sells minerals and ship cannons buys food, tools and clothes
-			Item[] bStoreB = {pickAxe, leatherBoots, gunPowder};
-			Item[] bStoreS = {gold, silver, iron, copper, sulphur};
+			Item[] berklyStoreBuy = {pickAxe, leatherBoots, gunPowder};
+			Item[] berklyStoreSell = {gold, silver, iron, copper, sulphur};
 			
 			//Sells tools buys metals, food, wood and clothes
-			Item[] mStoreB = {iron, copper, planks, leatherBoots};
-			Item[] mStoreS = {loom, shears, axe, gunPowder, pickAxe, hammer, cannon};
+			Item[] montorikiStoreBuy = {iron, copper, planks, leatherBoots};
+			Item[] montorikiStoreSell = {loom, shears, axe, gunPowder, pickAxe, hammer, cannon};
 			
 			//Sells clothes buys tools and food
-			Item[] qStoreB = {loom, sheep, cow, bread, shears};
-			Item[] qStoreS = {woolJumper, leatherBoots};
+			Item[] quailStoreBuy = {loom, sheep, cow, bread, shears};
+			Item[] quailStoreSell = {woolJumper, leatherBoots};
 			
 			//Sells wood buys tools, food and clothes
-			Item[] oStoreB = {bread, gold, axe, leatherBoots, woolJumper, pig};
-			Item[] oStoreS = {planks, charcoal};
+			Item[] ohinauStoreBuy = {bread, gold, axe, leatherBoots, woolJumper, pig};
+			Item[] ohinauStoreSell = {planks, charcoal};
 	
 	
 	//Creates each store and gives it lists of buyable and sellabel items
-	Store aStore = new Store(aStoreB, aStoreS);
-	Store bStore = new Store(bStoreB, bStoreS);
-	Store mStore = new Store(mStoreB, mStoreS);
-	Store qStore = new Store(qStoreB, qStoreS);
-	Store oStore = new Store(oStoreB, oStoreS);
+	Store anislyStore = new Store(anislyStoreBuy, anislyStoreSell);
+	Store berklyStore = new Store(berklyStoreBuy, berklyStoreSell);
+	Store montorikiStore = new Store(montorikiStoreBuy, montorikiStoreSell);
+	Store quailStore = new Store(quailStoreBuy, quailStoreSell);
+	Store ohinauStore = new Store(ohinauStoreBuy, ohinauStoreSell);
 	
 	/**
 	* Returns a random number between min and max.
@@ -112,34 +142,34 @@ public class Main {
 	* Each island has two routes from itself to another island
 	*/
 	private void islandSetup() {
-		islands[0] = new Island("Anisly island", aStore, a, "Tree Island"); 
-		islands[1] = new Island("Berkly island", bStore, b, "PalmIsland"); 
-		islands[2] = new Island("Montoriki island", mStore, m, "island"); 
-		islands[3] = new Island("Quail island", qStore, q, "Tree Island"); 
-		islands[4] = new Island("Ohinau island", oStore, o, "PalmIsland"); 
+		islands[0] = new Island("Anisly island", anislyStore, anislyRoutes, "Tree Island"); 
+		islands[1] = new Island("Berkly island", berklyStore, berklyRoutes, "PalmIsland"); 
+		islands[2] = new Island("Montoriki island", montorikiStore, montorikiRoutes, "island"); 
+		islands[3] = new Island("Quail island", quailStore, quailRoutes, "Tree Island"); 
+		islands[4] = new Island("Ohinau island", ohinauStore, ohinauRoutes, "PalmIsland"); 
 		
 		int g = 1;
 		for (int c = 0; c < 4; c++) {
 			for (int d = g;d < 5; d++) {
 				//Creates a route between two islands which has a distance and danger probability out of 10. 10 is 100% & 1 is 10%
-				r1 = new Route(islands[c], islands[d], getRandomNumber(4, 8), getRandomNumber(1, 6));
-				r2 = new Route(islands[c], islands[d], getRandomNumber(1, 4), getRandomNumber(6, 10));	
+				routeOne = new Route(islands[c], islands[d], getRandomNumber(4, 8), getRandomNumber(1, 6));
+				routeTwo = new Route(islands[c], islands[d], getRandomNumber(1, 4), getRandomNumber(6, 10));	
 				
 				if (c == 0) {
-					a.add(r1);
-					a.add(r2);
+					anislyRoutes.add(routeOne);
+					anislyRoutes.add(routeTwo);
 				} if (c == 1 || d == 1) {
-					b.add(r1);
-					b.add(r2);
+					berklyRoutes.add(routeOne);
+					berklyRoutes.add(routeTwo);
 				} if (c == 2 || d == 2) {
-					m.add(r1);
-					m.add(r2);
+					montorikiRoutes.add(routeOne);
+					montorikiRoutes.add(routeTwo);
 				} if (c == 3 || d == 3) {
-					q.add(r1);
-					q.add(r2);
+					quailRoutes.add(routeOne);
+					quailRoutes.add(routeTwo);
 				} if (c == 4 || d == 4) {
-					o.add(r1);
-					o.add(r2);
+					ohinauRoutes.add(routeOne);
+					ohinauRoutes.add(routeTwo);
 				}	
 			}
 			g++;

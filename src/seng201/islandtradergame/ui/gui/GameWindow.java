@@ -56,11 +56,13 @@ public class GameWindow implements MouseListener {
 	private JProgressBar shipCapacity, damage;
 	private int shipx, shipy;
 	
-	
 	/**
-	* Creates the game window with .
-	*
-	*/
+	 * Creates the game window with a array of islands, a trader and the game length in days.
+	 * 
+	 * @param isl A array of islands
+	 * @param trad The trader object
+	 * @param days How many days the game will run for
+	 */
 	public GameWindow(Island[] isl, Trader trad, int days) {
 		islands = isl;
 		trader = trad;
