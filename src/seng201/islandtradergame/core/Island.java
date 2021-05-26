@@ -45,7 +45,7 @@ public class Island extends JLabel {
 	 * This image has its size setup this is based of the images width and height.
 	 */
 	private void loadImages() {
-        	myImage = new ImageIcon(GameWindow.class.getResource("/islandtradergame/ui/gui/Images/" + islandSprite + ".png")).getImage();
+		myImage = new ImageIcon(Island.class.getResource("/seng201/islandtradergame/ui/gui/Images/" + islandSprite + ".png")).getImage();
             setPreferredSize(new Dimension(myImage.getWidth(null), myImage.getHeight(null)));
     }
 	
