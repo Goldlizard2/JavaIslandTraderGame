@@ -11,7 +11,7 @@ import seng201.islandtradergame.core.Item;
 class ItemTests {
 	private Item testItem;
 	private Item testItem2;
-	private Island island = new Island("testIsland", null, null, null);
+	private Island island = new Island("testIsland", null, null, "island");
 	
 	@BeforeEach
 	public void init() {

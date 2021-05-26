@@ -18,7 +18,7 @@ class ShipTests {
 	public void init() {
 		shipTest = new Ship("Johnny", 1, 300, 4, 200);
 		testItem = new Item("testItem", 5, 3);
-		island = new Island("testIsland", null, null, null);
+		island = new Island("testIsland", null, null, "island");
 	}
 	
 	/**
@@ -28,13 +28,13 @@ class ShipTests {
 	public void buyItemTestNotEnoughCapacity() {
 		Ship ship = new Ship("Johnny", 1, 1, 4, 200);
 		boolean buy = ship.buyItem(testItem);
-		assertEquals(true, buy);
+		assertEquals(false, buy);
 	}
 	
 	@Test 
 	public void buyItemTest() {
 		boolean buy = shipTest.buyItem(testItem);
-		assertEquals(false, buy);
+		assertEquals(true, buy);
 	}
 	
 	/**

@@ -16,17 +16,25 @@ class TraderTests {
 	
 	@BeforeEach
 	public void init() {
-		testItem = Item("testItem", 10, (float) 10);
-		ship = new Ship("testName", 5, 5, 5, 5);
+		ship = new Ship("testName", 5, 500, 5, 5);
 		traderTest = new Trader(ship);
 		
 	}
 	
 	@Test
-	public void test() {
-		traderTest.buyItem(null);
+	public void buyItemNotEnoughMoney() {
+		Item testItemExpensive = new Item("testItemExpensive", 10, 200);
+		String buy = traderTest.buyItem(testItemExpensive);
 		
-		assertEquals();
+		assertEquals("You do not have enough money!", buy);
+	}
+	
+	@Test
+	public void buyItemEnoughMoney() {
+		Item testItem = new Item("testItem", 10, 10);
+		String buy = traderTest.buyItem(testItem);
+		
+		assertEquals("Purchase Successful", buy);
 	}
 
 }

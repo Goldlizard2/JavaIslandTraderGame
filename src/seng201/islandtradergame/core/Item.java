@@ -39,9 +39,9 @@ public class Item {
 	/**
 	 * Creates a Item with a specific name, size and value.
 	 * 
-	 * @param name
-	 * @param size
-	 * @param value
+	 * @param name The name of the item
+	 * @param size The size of the item
+	 * @param value The size of the item
 	 */
 	public Item(String name, int size, float value) {
 		itemName = name;	
