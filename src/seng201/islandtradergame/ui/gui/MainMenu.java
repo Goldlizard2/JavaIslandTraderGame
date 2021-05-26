@@ -13,7 +13,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

@@ -184,7 +184,11 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Main main = new Main();
-		main.islandSetup();
+		main.restart();
+	}
+	
+	public void restart() {
+		islandSetup();
 		new MainMenu(islands);
 	}
 }

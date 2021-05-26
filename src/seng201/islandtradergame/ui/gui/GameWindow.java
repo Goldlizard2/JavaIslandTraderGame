@@ -7,6 +7,7 @@ import seng201.islandtradergame.core.Island;
 import seng201.islandtradergame.core.Item;
 import seng201.islandtradergame.core.Route;
 import seng201.islandtradergame.core.Trader;
+import seng201.islandtradergame.ui.Main;
 
 import javax.swing.JPanel;
 import java.util.Random;
@@ -395,6 +396,8 @@ public class GameWindow implements MouseListener {
 	 */
 	private void gameOver() {
 		JOptionPane.showMessageDialog(frame, "Game Over you made £" + balance());
+		Main main = new Main();
+		main.restart();
 		quit();
 	}
 	
