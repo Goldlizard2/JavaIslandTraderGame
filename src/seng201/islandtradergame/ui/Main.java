@@ -96,23 +96,23 @@ public class Main {
 			//Creates list of items each store sells and buys
 			
 			//Sells food products buys tools and clothes
-			Item[] anislyStoreBuy = {hammer, planks, leatherBoots, woolJumper};
+			Item[] anislyStoreBuy = {hammer, planks, leatherBoots, woolJumper, sulphur, shears, axe};
 			Item[] anislyStoreSell = {bread, rice, cow, pig, sheep, potassiumNitrate};
 			
 			//Sells minerals and ship cannons buys food, tools and clothes
-			Item[] berklyStoreBuy = {pickAxe, leatherBoots, gunPowder};
+			Item[] berklyStoreBuy = {pickAxe, leatherBoots, gunPowder, charcoal, rice, pig, sheep, loom};
 			Item[] berklyStoreSell = {gold, silver, iron, copper, sulphur};
 			
 			//Sells tools buys metals, food, wood and clothes
-			Item[] montorikiStoreBuy = {iron, copper, planks, leatherBoots};
+			Item[] montorikiStoreBuy = {iron, copper, planks, leatherBoots, charcoal, potassiumNitrate, sulphur, rice, pig};
 			Item[] montorikiStoreSell = {loom, shears, axe, gunPowder, pickAxe, hammer, cannon};
 			
 			//Sells clothes buys tools and food
-			Item[] quailStoreBuy = {loom, sheep, cow, bread, shears};
+			Item[] quailStoreBuy = {loom, sheep, cow, bread, shears, rice, pig, potassiumNitrate, copper, silver, pickAxe};
 			Item[] quailStoreSell = {woolJumper, leatherBoots};
 			
 			//Sells wood buys tools, food and clothes
-			Item[] ohinauStoreBuy = {bread, gold, axe, leatherBoots, woolJumper, pig};
+			Item[] ohinauStoreBuy = {bread, gold, axe, leatherBoots, woolJumper, pig, rice, sheep, copper, silver, iron, copper, hammer};
 			Item[] ohinauStoreSell = {planks, charcoal};
 	
 	

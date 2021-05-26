@@ -13,6 +13,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -38,7 +39,7 @@ public class MainMenu implements MouseListener {
 	private JTextField traderNameTextField;
 	private JLabel nameErrorLB, shipErrorLB;
 	private String nameError = "Must only contain letters and have a minimum of 3 characters", shipNotSelectedError = "You must select a ship";
-	private int crew = 2, shipSize, hullCapacity = 10, endurance = 100;
+	private int crew = 2, shipSize, hullCapacity = 20, endurance = 100;
 	private JRadioButton ship1, ship2, ship3, ship4;
 	private ButtonGroup radioGroup = new ButtonGroup();
 	private boolean shipSelected = false;
@@ -64,6 +65,8 @@ public class MainMenu implements MouseListener {
 	 */
 	private void initialise() {
 		mainMenuFrame = new JFrame();
+		mainMenuFrame.setResizable(false);
+		
 		mainMenuFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MainMenu.class.getResource("/seng201/islandtradergame/ui/gui/Images/island.png")));
 		mainMenuFrame.setTitle("Main Menu");
 		mainMenuFrame.setBounds(100, 100, 731, 507);
@@ -73,7 +76,7 @@ public class MainMenu implements MouseListener {
 		
 		//Start button
 		startGame = new JButton("Start");
-		startGame.setBounds(412, 79, 293, 378);
+		startGame.setBounds(571, 313, 114, 80);
 		startGame.setEnabled(false);
 		startGame.addActionListener(new ActionListener() {
 			
@@ -128,11 +131,12 @@ public class MainMenu implements MouseListener {
 		shipErrorLB.setForeground(Color.RED);
 		
 		JLabel lblNewLabel_3 = new JLabel("Welcome to Trader Island");
-		lblNewLabel_3.setBounds(304, 10, 262, 41);
+		lblNewLabel_3.setBounds(156, 11, 473, 57);
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_3.setFont(new Font("Edwardian Script ITC", Font.PLAIN, 58));
 		
 		nameInput = new JPanel();
+		nameInput.setBackground(new Color(255, 51, 102, 0));
 		nameInput.setBounds(10, 79, 363, 63);
 		nameInput.setLayout(null);
 		

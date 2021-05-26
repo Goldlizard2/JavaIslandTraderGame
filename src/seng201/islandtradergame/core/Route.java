@@ -75,6 +75,6 @@ public class Route {
 	 * @return String The info about the route
 	 */
 	public String toString() {
-		return islandOne + " to " + islandTwo + " distance " + tripDistance + " days problity of death " + routeSaftyProbability;
+		return islandOne + " to " + islandTwo + " distance " + tripDistance + " days probability of death " + routeSaftyProbability;
 	}
 }

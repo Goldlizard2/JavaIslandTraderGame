@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
+import java.awt.Toolkit;
 
 /**
  * This class implements the gameWindow GUI, this is used for the game itself. User interactions with GUI components are used to play the game.
@@ -82,6 +83,7 @@ public class GameWindow implements MouseListener {
 	public void initialise() {
 		
 		frame = new JFrame();
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/island.png")));
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -530,7 +532,7 @@ public class GameWindow implements MouseListener {
 						
 					case 1:
 					case 2:
-						JOptionPane.showMessageDialog(frame, "Bad Wether, your ship has been damaged -" + (100 - trader.getShip().updateDamage()));
+						JOptionPane.showMessageDialog(frame, "Bad weather, your ship has been damaged -" + (100 - trader.getShip().updateDamage()));
 						travelIsland(crewWage);
 						break;
 					}
@@ -539,6 +541,7 @@ public class GameWindow implements MouseListener {
 				
 			} else {
 				JOptionPane.showMessageDialog(frame, "You do not have enough money to pay your crew");
+				gameOver();
 			}	
 		} else {
 			
