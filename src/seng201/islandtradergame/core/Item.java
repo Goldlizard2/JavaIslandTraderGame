@@ -84,21 +84,21 @@ public class Item {
 	}
 	
 	/**
-	 * Constructs a String of toString and where the item was sold. 
-	 * 
-	 * @return String All info about the item
-	 */
-	public String itemOrigin() {
-		return toString() + " was sold " + asosatedIslandName;
-	}
-	
-	/**
 	 * Sets the asosatedIslandName to the parsed in islands name.
 	 * 
 	 * @param island The island the item was sold at
 	 */
 	public void itemSoldIslandName(Island island) {
 		asosatedIslandName = island.toString();
+	}
+	
+	/**
+	 * Constructs a String of toString and where the item was sold. 
+	 * 
+	 * @return String All info about the item
+	 */
+	public String itemOrigin() {
+		return toString() + " was sold " + asosatedIslandName;
 	}
 	
 	/**

@@ -26,9 +26,13 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
+import javax.swing.JScrollPane;
+
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
 import java.awt.Toolkit;
+import javax.swing.JTextArea;
+import javax.swing.DropMode;
 
 /**
  * This class implements the gameWindow GUI, this is used for the game itself. User interactions with GUI components are used to play the game.
@@ -52,9 +56,10 @@ public class GameWindow implements MouseListener {
 	private JButton acceptSelection;
 	private JLabel shipSprite, islandName, day, money;
 	private JPanel islandStats, map, stats;
-	private boolean islandSelected = false, statsSelected = false;
+	private boolean islandSelected = false;
 	private Island selectedIsland;
-	private JTextPane shipStats, boughtSoldItems;
+	private JTextPane shipStats; 
+	private JTextArea boughtSoldItems;
 	private JProgressBar shipCapacity, damage;
 	private int shipx, shipy;
 	
@@ -159,7 +164,9 @@ public class GameWindow implements MouseListener {
 		
 		buying = new JList<Item>();
 		buying.setBounds(260, 61, 180, 160);
-		islandStats.add(buying);
+		JScrollPane spBuy = new JScrollPane(buying);
+		spBuy.setBounds(260, 61, 180, 160);
+		islandStats.add(spBuy);
 		
 		routes = new JList<Route>();
 		routes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -208,10 +215,10 @@ public class GameWindow implements MouseListener {
 		 */
 		traderCargoList = new JList<Item>();
 		traderCargoList.setBounds(105, 68, 200, 280);
-		traderCargoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		traderCargoList.addMouseListener(new MouseAdapter() {
-		});
 		traderCargoList.setValueIsAdjusting(true);
+		JScrollPane spCargoList = new JScrollPane(traderCargoList);
+		spCargoList.setBounds(105, 68, 200, 280);
+		
 		
 		/**
 		 * Initialises the stores sellabel items.
@@ -256,7 +263,7 @@ public class GameWindow implements MouseListener {
 		storeTab.add(youItemsLabel);
 		storeTab.add(itemsStoreBuys);
 		storeTab.add(itemsStoreSells);
-		storeTab.add(traderCargoList);
+		storeTab.add(spCargoList);
 		storeTab.add(storeBuyList);
 		storeTab.add(storeSellList);
 		storeTab.add(acceptSelection);
@@ -273,11 +280,15 @@ public class GameWindow implements MouseListener {
 		stats.setLayout(null);
 		stats.setVisible(false);
 		
-		boughtSoldItems = new JTextPane();
+		
+		
+		boughtSoldItems = new JTextArea();
 		boughtSoldItems.setBackground(new Color(204, 255, 204));
 		boughtSoldItems.setBounds(187, 35, 184, 214);
 		boughtSoldItems.setEditable(false);
-		stats.add(boughtSoldItems);
+		JScrollPane sp = new JScrollPane(boughtSoldItems);
+		sp.setBounds(187, 35, 184, 214);
+		stats.add(sp);
 		
 		shipStats = new JTextPane();
 		shipStats.setBackground(new Color(204, 255, 204));
@@ -309,11 +320,12 @@ public class GameWindow implements MouseListener {
 				count++;
 				if(count == 1) {
 					stats.setVisible(true);
-					statsSelected = true;
+					islandStats.setVisible(false);
+					islandSelected = true;
 				}
 				else {
 					stats.setVisible(false);
-					statsSelected = false;
+					islandSelected = false;
 					count = 0;
 				}
 			}
@@ -409,7 +421,7 @@ public class GameWindow implements MouseListener {
 		if (!storeBuyList.isSelectionEmpty()) {
 			JOptionPane.showMessageDialog(frame,trader.sellItem((Item) storeBuyList.getSelectedValue(), currentIsland));
 			storeBuyList.clearSelection();
-		} else {
+		} else if (!storeSellList.isSelectionEmpty()) {
 			JOptionPane.showMessageDialog(frame,trader.buyItem((Item) storeSellList.getSelectedValue()));
 			storeSellList.clearSelection();
 		}
@@ -492,8 +504,10 @@ public class GameWindow implements MouseListener {
 		if(rand.nextInt(trader.getShip().getShipDefence()) <= 3) {
 			JOptionPane.showMessageDialog(frame, "You lose the battle with the pirates they board your ship");
 			
-			if (trader.getShip().cargoValue() > getRandomNumber(20, 30)) {
+			
+			if (trader.getShip().cargoValue() >= getRandomNumber(20, 30)) {
 				JOptionPane.showMessageDialog(frame, "Your cargo meets the pirates value, you are let go minuse your items");
+				shoppingHistory();
 				travelIsland(crewWage);
 			} else {
 				JOptionPane.showMessageDialog(frame, "Your cargo does not meet the pirates value you and your crew are made to walk the plank");
@@ -589,7 +603,7 @@ public class GameWindow implements MouseListener {
 		if (e.getComponent().equals(map)) {
 			islandSelected = false;
 			islandStats.setVisible(false);
-		} else if (!statsSelected){
+		} else if (!islandSelected){
 			islandStats((Island) e.getComponent());
 			islandSelected = true;
 		}
@@ -610,7 +624,7 @@ public class GameWindow implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		if (!e.getComponent().equals(map) && !islandSelected && !statsSelected) {
+		if (!e.getComponent().equals(map) && !islandSelected) {
 			islandStats((Island) e.getComponent());
 		}
 	}

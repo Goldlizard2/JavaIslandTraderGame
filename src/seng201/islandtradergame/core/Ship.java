@@ -10,7 +10,7 @@ import java.util.Random;
  */
 public class Ship {
 	private Random rand = new Random();
-	private int shipSpeed, shipCapacity, shipCrewNum, shipEndurance, shipHealth, crewWage = 1, cargoValue, defence = 5;
+	private int shipSpeed, shipCapacity, shipCrewNum, shipEndurance, shipHealth, crewWage = 1, cargoValue, defence = 5, originalShipCapacity;
 	private String shipName;
 	private ArrayList<Item> cargo = new ArrayList<Item>(), soldItems = new ArrayList<Item>();
 	
@@ -26,7 +26,8 @@ public class Ship {
 	public Ship(String name, int speed, int capacity, int crewNum, int endurance) {
 		shipName = name;
 		shipSpeed = speed;
-		shipCapacity = capacity;
+		originalShipCapacity = capacity;
+		shipCapacity = originalShipCapacity;
 		shipCrewNum = crewNum;
 		shipEndurance = endurance;	
 		shipHealth = shipEndurance;
@@ -48,7 +49,7 @@ public class Ship {
 			if (itm.equals(item)) {
 				itm.itemSoldIslandName(island);
 				cargoValue -= item.getValue();
-				soldItems.add(item);
+				soldItems.add(itm);
 				shipCapacity += item.getItemSize();
 				cargo.remove(itm);
 				return true;
@@ -89,8 +90,11 @@ public class Ship {
 	 * @return cargoValue The value of all the items in your cargo
 	 */
 	public int cargoValue() {	
+		shipCapacity = originalShipCapacity;
+		int tempCargoValue = cargoValue;
+		cargoValue = 0;
 		cargo.clear();
-		return cargoValue;
+		return tempCargoValue;
 	}
 	
 	public int getRandomNumber(int min, int max) {
