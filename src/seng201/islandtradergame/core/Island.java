@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import seng201.islandtradergame.ui.gui.GameWindow;
+
 /**
  * bruh
  */
@@ -40,10 +42,10 @@ public class Island extends JLabel {
 	
 	/**
 	 * Loads in the image file which can be changed by changing the isalndSprite string.
-	 * This image has its size setup this is based of the images width and hight.
+	 * This image has its size setup this is based of the images width and height.
 	 */
 	private void loadImages() {
-        	myImage = new ImageIcon("src\\seng201\\islandtradergame\\ui\\gui\\Images\\" + islandSprite + ".png").getImage();
+        	myImage = new ImageIcon(GameWindow.class.getResource("/islandtradergame/ui/gui/Images/" + islandSprite + ".png")).getImage();
             setPreferredSize(new Dimension(myImage.getWidth(null), myImage.getHeight(null)));
     }
 	

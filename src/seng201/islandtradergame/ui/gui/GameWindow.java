@@ -95,11 +95,11 @@ public class GameWindow implements MouseListener {
 	}
 	
 	/**
-	 * Creates the map tab and initlises all the isalnds, ship and the isalnds stats panel.
+	 * Creates the map tab and initlises all the islands, ship and the islands stats panel.
 	 */
 	private void createMapTab() {
 		map = new JPanel();
-		map.setBackground(new Color(0, 162, 232));
+		map.setBackground(new Color(0, 155, 0));
 		tabbedPane.addTab("Map", null, map, null);
 		map.setLayout(null);
 		
@@ -167,7 +167,7 @@ public class GameWindow implements MouseListener {
 		
 		shipSprite = new JLabel("");
 		shipSprite.setBounds(890, 311, 100, 70);
-		shipSprite.setIcon(new ImageIcon(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/ship.png")));
+		shipSprite.setIcon(new ImageIcon(GameWindow.class.getResource("/Images/ship.png")));
 		map.add(shipSprite);
 		
 		for (int island = 0; island <= 4; island++) {
