@@ -399,7 +399,7 @@ public class GameWindow implements MouseListener {
 	 */
 	private void buySell() {
 		
-		if (!storeBuyList.isSelectionEmpty() && storeSellList.isSelectionEmpty()) {
+		if (!storeBuyList.isSelectionEmpty()) {
 			JOptionPane.showMessageDialog(frame,trader.sellItem((Item) storeBuyList.getSelectedValue(), currentIsland));
 			storeBuyList.clearSelection();
 		} else {

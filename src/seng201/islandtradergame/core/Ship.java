@@ -66,9 +66,9 @@ public class Ship {
 	 * 
 	 * @param item The item the player has selected to buy
 	 * 
-	 * @return String This either states you have bought the item or you don't have enough space.
+	 * @return boolean This either states you have bought the item or you don't have enough space.
 	 */
-	public String buyItem(Item item) {
+	public boolean buyItem(Item item) {
 		if (item.getItemSize() <= shipCapacity) {
 			if(item instanceof ShipUpgradeCannon) {
 				defence += item.getDefence();
@@ -77,9 +77,9 @@ public class Ship {
 			shipCapacity -= item.getItemSize();
 			cargoValue += item.getValue();
 			cargo.add(new Item(item.getName()));
-			return "Purchase Successful";
+			return true;
 		} else {
-			return "Not enough capacity left!";
+			return false;
 		}
 	}
 	

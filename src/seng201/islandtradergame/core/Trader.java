@@ -61,12 +61,16 @@ public class Trader {
 	 * The item is then used in the ship method buy item which will return a string.
 	 * 
 	 * @param item The item the trader wants to buy
-	 * @return String States you don't have the money for this item
+	 * @return String States you don't have the money for this item or you have bought the item or you don't have enough space.
 	 */
 	public String buyItem(Item item) {
 		if(money >= item.getValue()) {
-			money -= item.getValue();
-		return traderShip.buyItem(item);
+			if (traderShip.buyItem(item)) {
+				money -= item.getValue();
+				return "Purchase Successful";
+			} else {
+				return "Not enough capacity left!";
+			}
 		} else {
 			return "You do not have enough money!";
 		}
