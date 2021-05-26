@@ -84,7 +84,7 @@ public class GameWindow implements MouseListener {
 	public void initialise() {
 		
 		frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/island.png")));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(GameWindow.class.getResource("/seng201/islandtradergame/ui/gui/Images/ship.png")));
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 1280, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
