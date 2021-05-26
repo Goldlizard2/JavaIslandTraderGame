@@ -135,7 +135,6 @@ public class MainMenu implements MouseListener {
 		lblNewLabel_3.setFont(new Font("Edwardian Script ITC", Font.PLAIN, 58));
 		
 		nameInput = new JPanel();
-		nameInput.setBackground(new Color(255, 51, 102, 0));
 		nameInput.setBounds(10, 79, 363, 63);
 		nameInput.setLayout(null);
 		
